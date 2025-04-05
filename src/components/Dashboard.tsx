@@ -25,13 +25,20 @@ export default function Dashboard({ timeframe, onTimeframeChange }: DashboardPro
           <h1 className="text-2xl font-semibold text-gray-400 opacity-70">New report</h1>
         </div>
         <div className="flex items-center gap-4">
-          <select 
-            className="px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm"
-            value={`${format(timeframe.start, 'MMM d')} - ${format(timeframe.end, 'MMM d, yyyy')}`}
-            onChange={() => onTimeframeChange(timeframe)}
-          >
-            <option>{format(timeframe.start, 'MMM d')} - {format(timeframe.end, 'MMM d, yyyy')}</option>
-          </select>
+          <div className="relative">
+            <select 
+              className="appearance-none px-4 pr-10 py-2 bg-white border border-gray-200 rounded-lg text-sm cursor-pointer"
+              value={`${format(timeframe.start, 'MMM d')} - ${format(timeframe.end, 'MMM d, yyyy')}`}
+              onChange={() => onTimeframeChange(timeframe)}
+            >
+              <option>{format(timeframe.start, 'MMM d')} - {format(timeframe.end, 'MMM d, yyyy')}</option>
+            </select>
+            <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+              <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+          </div>
         </div>
       </div>
 
