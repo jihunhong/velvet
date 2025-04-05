@@ -1,5 +1,4 @@
 import { FC } from 'react'
-import Logo from './Logo'
 
 interface Account {
   id: number
@@ -14,7 +13,8 @@ interface AccountListProps {
   onDetailsClick?: () => void
 }
 
-const formatBalance = (balance: number, isLast: boolean): string => {
+const formatBalance = (balance: number): string => {
+
   if (balance >= 1000) {
     return `${(balance / 1000).toFixed(1)}K`
   }
@@ -24,34 +24,52 @@ const formatBalance = (balance: number, isLast: boolean): string => {
 const AccountList: FC<AccountListProps> = ({ accounts, onDetailsClick }) => {
   return (
     <div className="flex items-center gap-4 mt-8">
-      <div className="flex flex-1 gap-2 p-1 bg-gray-100 rounded-full">
+      <div className="flex flex-1 gap-2 p-1.5 bg-gray-50/50 rounded-full shadow-[inset_0px_2px_4px_rgba(0,0,0,0.05)]">
         {accounts.map((account, index) => (
           <div
             key={account.id}
-            className={`flex items-center gap-2 rounded-full p-1 ${
+            className={`flex items-center gap-3 rounded-full py-1.5 px-2 transition-all duration-200 ${
               index === accounts.length - 1
-                ? 'bg-transparent'
-                : 'bg-white border border-gray-200 shadow-[rgba(100,100,111,0.2)_0px_2px_4px_0px]'
+                ? 'bg-transparent hover:bg-white/50'
+                : 'bg-white hover:bg-gray-50 border border-gray-100 shadow-[0px_2px_4px_rgba(0,0,0,0.05)] hover:shadow-[0px_4px_8px_rgba(0,0,0,0.1)]'
             }`}
             style={{ width: `${account.percentage}%` }}
           >
             {index === accounts.length - 1 ? (
-              <div className="w-8 h-8 shrink-0 flex items-center justify-center">
-                <Logo size="md" />
+              <div className="w-8 h-8 shrink-0 flex items-center justify-center rounded-full shadow-md overflow-hidden transition-shadow duration-200 hover:shadow-lg bg-black/90">
+                <svg 
+                  className="w-5 h-5 text-white"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M19 5c-1.5 0-2.8 1.4-3 2-3.5-1.5-11-.3-11 5 0 1.8 0 3 2 4.5V20h4v-2h3v2h4v-4c1-.5 1.7-1 2-2h2v-4h-2c0-1-.5-1.5-1-2V5z" />
+                  <path d="M2 9v1c0 1.1.9 2 2 2h1" />
+                  <path d="M16 11h0" />
+                </svg>
               </div>
             ) : (
-              <img
-                src={account.avatar}
-                alt={account.name}
-                className="w-8 h-8 rounded-full shrink-0"
-              />
+              <div className="w-8 h-8 shrink-0 rounded-full shadow-md overflow-hidden">
+                <img
+                  src={account.avatar}
+                  alt={account.name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
             )}
-            <div className="min-w-0 flex-1 flex justify-between">
-              <div className={`font-bold truncate ${index === accounts.length - 1 ? 'text-gray-500' : ''}`}>
-                ₩{formatBalance(account.balance, index === accounts.length - 1)}
+            <div className="min-w-0 flex-1 flex justify-between items-center">
+              <div className={`font-bold truncate ${
+                index === accounts.length - 1 
+                  ? 'text-gray-500 hover:text-gray-700' 
+                  : 'text-gray-700'
+              }`}>
+                ₩{formatBalance(account.balance)}
               </div>
               {index !== accounts.length - 1 && (
-                <div className="font-bold text-gray-500 pr-2 opacity-70">
+                <div className="font-medium text-gray-400 pr-2">
                   {account.percentage.toFixed(2)}%
                 </div>
               )}
@@ -61,7 +79,7 @@ const AccountList: FC<AccountListProps> = ({ accounts, onDetailsClick }) => {
       </div>
       <button
         onClick={onDetailsClick}
-        className="px-4 py-2 bg-black text-white rounded-full text-sm font-medium hover:bg-gray-900 transition-colors"
+        className="px-4 py-2 bg-black text-white rounded-full text-sm font-medium hover:bg-gray-900 transition-colors shadow-lg hover:shadow-xl"
       >
         Details
       </button>

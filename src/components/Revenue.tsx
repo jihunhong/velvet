@@ -17,7 +17,7 @@ export default function Revenue({ data = [] }: RevenueProps) {
 
   return (
     <div className="col-span-3 p-6">
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between">
         <div className='flex flex-col gap-2'>
           <h2 className="text-lg font-bold text-gray-900">Revenue</h2>
           <div className="flex items-center gap-2 font-inter">
