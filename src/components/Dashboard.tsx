@@ -22,7 +22,7 @@ export default function Dashboard({ timeframe, onTimeframeChange }: DashboardPro
       {/* 헤더 섹션 */}
       <div className="flex items-center justify-between w-full">
         <div className="flex items-center gap-2">
-          <h1 className="text-2xl font-semibold text-gray-900">New report</h1>
+          <h1 className="text-2xl font-semibold text-gray-400 opacity-70">New report</h1>
         </div>
         <div className="flex items-center gap-4">
           <select 

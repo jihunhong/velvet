@@ -5,7 +5,7 @@ export default function SearchBar() {
         <div className="relative flex-1 max-w-2xl">
           <input
             type="text"
-            placeholder="거래내역 검색"
+            placeholder="Search transactions"
             className="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-[20px] text-sm font-bold focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
           <svg

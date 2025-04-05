@@ -58,7 +58,7 @@ export default function Revenue({ data = [] }: RevenueProps) {
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92%] h-[109%] bg-gray-200 rounded-xl"></div>
             <div className="relative bg-black rounded-xl p-4 shadow-[rgba(100,100,111,0.2)_0px_7px_29px_0px]">
               <div className="text-sm text-gray-400 mb-2">Top expense</div>
-              <div className="text-2xl font-bold text-white mb-2">147.3만원</div>
+              <div className="text-2xl font-bold text-white mb-2">147.3</div>
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium text-white">Macbook Air</span>
                 <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
