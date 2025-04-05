@@ -11,7 +11,7 @@ export default {
         secondary: '#1E88E5',
       },
       fontFamily: {
-        inter: ['Inter', 'sans-serif'],
+        sans: ['Pretendard', 'system-ui', 'sans-serif'],
       },
     },
   },

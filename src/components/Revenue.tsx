@@ -20,7 +20,7 @@ export default function Revenue({ data = [] }: RevenueProps) {
       <div className="flex items-center justify-between">
         <div className='flex flex-col gap-2'>
           <h2 className="text-lg font-bold text-gray-900">Revenue</h2>
-          <div className="flex items-center gap-2 font-inter">
+          <div className="flex items-center gap-2">
             <h3 className="text-3xl font-bold text-gray-900">₩624,730<span className="text-gray-400 text-2xl">.82</span></h3>
             <span className="px-2 py-1 text-xs font-medium bg-pink-600 text-white rounded-full flex items-center gap-1">
               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -29,7 +29,7 @@ export default function Revenue({ data = [] }: RevenueProps) {
               5.2%
             </span>
           </div>
-          <div className="font-inter font-bold text-sm text-gray-500 flex items-center gap-2">
+          <div className="font-bold text-sm text-gray-500 flex items-center gap-2">
             <span>vs prev.</span>
             <span>₩1,124,730</span>
             <span className="text-gray-400">Jun 1 - Aug 31, 2023</span>
