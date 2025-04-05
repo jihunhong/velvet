@@ -6,11 +6,7 @@
 [![React](https://img.shields.io/badge/React-18.2.0-61dafb)](#)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0.0-3178c6)](#)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4.0-38bdf8)](#)
-[![Cursor](https://img.shields.io/badge/IDE-Cursor-007ACC)](#)
-[![Vite](https://img.shields.io/badge/Build-Vite-646CFF)](#)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](#)
-[![Code style: prettier](https://img.shields.io/badge/Code_Style-Prettier-ff69b4.svg)](#)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](#)
+
 
 </div>
 
