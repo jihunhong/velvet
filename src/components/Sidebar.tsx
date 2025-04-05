@@ -1,13 +1,10 @@
+import Logo from './Logo'
+
 export default function Sidebar() {
   return (
     <div className="fixed left-0 top-0 bottom-0 w-64 p-6">
       {/* Logo */}
-      <div className="flex items-center gap-2 mb-8">
-        <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center">
-          <span className="text-white text-lg">₩</span>
-        </div>
-        <span className="text-xl font-bold">Velvet</span>
-      </div>
+      <Logo className="mb-8" withText size="lg" />
 
       {/* Navigation */}
       <nav className="space-y-1">

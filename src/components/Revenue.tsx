@@ -13,6 +13,8 @@ import RateCard from './RateCard';
 
 export default function Revenue({ data = [] }: RevenueProps) {
   console.log(data);
+
+
   return (
     <div className="col-span-3 p-6">
       <div className="flex items-center justify-between mb-6">
@@ -88,6 +90,7 @@ export default function Revenue({ data = [] }: RevenueProps) {
           </div>
         </div>
       </div>
+
     </div>
   );
 } 
