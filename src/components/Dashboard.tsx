@@ -1,6 +1,8 @@
 import {format} from 'date-fns';
 import Revenue from './Revenue';
 import AccountList from './AccountList';
+import ExpenseRankingList from './ExpenseTracking';
+import Budgets from './Budgets';
 
 interface DashboardProps {
   timeframe: {
@@ -80,7 +82,20 @@ export default function Dashboard({ timeframe, onTimeframeChange }: DashboardPro
         <Revenue data={mockData} />
       </div>
       <AccountList accounts={sampleAccounts} />
-
+      <div className='grid grid-rows-2 grid-cols-1 lg:grid-cols-4 gap-2 w-full'>
+        <div className='row-span-1'>
+          <ExpenseRankingList />
+          
+        </div>
+        <div className='row-span-1'>
+          <ExpenseRankingList />
+          
+        </div>
+        <div className='row-span-2 col-span-2'>
+          <Budgets />
+        </div>
+      </div>
+      
     </div>
   );
 } 
