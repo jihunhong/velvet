@@ -24,14 +24,14 @@ const formatBalance = (balance: number): string => {
 const AccountList: FC<AccountListProps> = ({ accounts, onDetailsClick }) => {
   return (
     <div className="flex items-center gap-4 mt-8">
-      <div className="flex flex-1 gap-2 p-1.5 bg-gray-50/50 rounded-full shadow-[inset_0px_2px_4px_rgba(0,0,0,0.05)]">
+      <div className="flex flex-1 gap-2 p-1.5 bg-gray-100 rounded-full">
         {accounts.map((account, index) => (
           <div
             key={account.id}
             className={`flex items-center gap-3 rounded-full py-1.5 px-2 transition-all duration-200 ${
               index === accounts.length - 1
-                ? 'bg-transparent hover:bg-white/50'
-                : 'bg-white hover:bg-gray-50 border border-gray-100 shadow-[0px_2px_4px_rgba(0,0,0,0.05)] hover:shadow-[0px_4px_8px_rgba(0,0,0,0.1)]'
+                ? 'bg-transparent'
+                : 'bg-white border border-gray-100 shadow-[0px_2px_2px_rgba(0,0,0,0.05)]'
             }`}
             style={{ width: `${account.percentage}%` }}
           >
