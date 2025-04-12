@@ -19,7 +19,7 @@ export default function Revenue({ data = [] }: RevenueProps) {
     <div className="col-span-3 p-6">
       <div className="flex items-center justify-between">
         <div className='flex flex-col gap-2'>
-          <h2 className="text-lg font-bold text-gray-900">Revenue</h2>
+          <h2 className="text-lg font-bold text-gray-900">Expense</h2>
           <div className="flex items-center gap-2">
             <h3 className="text-3xl font-bold text-gray-900">₩624,730<span className="text-gray-400 text-2xl">.82</span></h3>
             <span className="px-2 py-1 text-xs font-medium bg-pink-600 text-white rounded-full flex items-center gap-1">
