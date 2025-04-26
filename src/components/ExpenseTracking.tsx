@@ -65,7 +65,7 @@ const ExpenseTracking = () => {
   };
 
   return (
-    <div className="bg-gray-100 px-4 py-5 rounded-3xl">
+    <div className="bg-gray-50 px-4 py-5 rounded-3xl">
       <div className="flex justify-between items-center mb-2">
         <button 
           onClick={toggleSort}

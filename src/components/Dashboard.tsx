@@ -3,6 +3,9 @@ import Revenue from './Revenue';
 import AccountList from './AccountList';
 import ExpenseRankingList from './ExpenseTracking';
 import Budgets from './Budgets';
+import CategoryExpenses from './CategoryExpenses';
+import {ChevronRight} from 'lucide-react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 interface DashboardProps {
   timeframe: {
@@ -51,7 +54,72 @@ const mockData = [
     }
   ];
 
+const categoryExpenseData = [
+  {
+    month: '9월',
+    categories: [
+      {
+        amount: 6901000,
+        category: '식비',
+        avatar: 'https://cdn-icons-png.flaticon.com/512/1046/1046784.png'
+      },
+      {
+        amount: 4500000,
+        category: '주거',
+        avatar: 'https://cdn-icons-png.flaticon.com/512/1670/1670080.png'
+      },
+      {
+        amount: 3200000,
+        category: '교통',
+        avatar: 'https://cdn-icons-png.flaticon.com/512/3097/3097180.png'
+      }
+    ]
+  },
+  {
+    month: '10월',
+    categories: [
+      {
+        amount: 11035000,
+        category: '식비',
+        avatar: 'https://cdn-icons-png.flaticon.com/512/1046/1046784.png'
+      },
+      {
+        amount: 4800000,
+        category: '주거',
+        avatar: 'https://cdn-icons-png.flaticon.com/512/1670/1670080.png'
+      },
+      {
+        amount: 3500000,
+        category: '교통',
+        avatar: 'https://cdn-icons-png.flaticon.com/512/3097/3097180.png'
+      }
+    ]
+  },
+  {
+    month: '11월',
+    categories: [
+      {
+        amount: 9288000,
+        category: '식비',
+        avatar: 'https://cdn-icons-png.flaticon.com/512/1046/1046784.png'
+      },
+      {
+        amount: 4600000,
+        category: '주거',
+        avatar: 'https://cdn-icons-png.flaticon.com/512/1670/1670080.png'
+      },
+      {
+        amount: 3300000,
+        category: '교통',
+        avatar: 'https://cdn-icons-png.flaticon.com/512/3097/3097180.png'
+      }
+    ]
+  }
+];
+
 export default function Dashboard({ timeframe, onTimeframeChange }: DashboardProps) {
+  
+
   return (
     <div className="bg-white rounded-[20px] p-6 space-y-6 w-full">
       {/* 헤더 섹션 */}
@@ -85,15 +153,16 @@ export default function Dashboard({ timeframe, onTimeframeChange }: DashboardPro
       <div className='grid grid-rows-2 grid-cols-1 lg:grid-cols-4 gap-2 w-full'>
         <div className='row-span-1'>
           <ExpenseRankingList />
-          
         </div>
         <div className='row-span-1'>
           <ExpenseRankingList />
-          
         </div>
         <div className='row-span-2 col-span-2'>
           <Budgets />
         </div>
+        <div className="row-span-1 col-span-2">
+        <CategoryExpenses data={categoryExpenseData} />
+      </div>
       </div>
       
     </div>
