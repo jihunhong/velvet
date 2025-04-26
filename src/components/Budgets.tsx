@@ -41,7 +41,7 @@ const expenseData: ExpenseData[] = [
   {
     id: 1,
     name: "Macbook Air",
-    avatar: "/avatars/armin.jpg",
+    avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTm08Vubu3pKi9jDK6sdcr6NpHtFXlzmcjvyw&s",
     totalExpense: 209633,
     transactions: 118,
     budget: 0.84,
@@ -61,7 +61,7 @@ const expenseData: ExpenseData[] = [
   {
     id: 2,
     name: "Salad",
-    avatar: "/avatars/mikasa.jpg",
+    avatar: "https://media.dongwon.com/assets/_temp/post/200603/01.jpg",
     totalExpense: 156841,
     transactions: 103,
     budget: 0.89,
@@ -81,7 +81,7 @@ const expenseData: ExpenseData[] = [
   {
     id: 3,
     name: "T-shirts",
-    avatar: "/avatars/eren.jpg",
+    avatar: "https://cdn.shopify.com/s/files/1/2987/0758/files/Pique_T-Shirt-T-Shirt-LDM101007-0101-Black-3.jpg?v=1702902050",
     totalExpense: 117115,
     transactions: 84,
     budget: 0.79,
