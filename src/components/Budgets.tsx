@@ -191,16 +191,28 @@ export default function Budgets() {
                           <TrendingDown className="w-3 h-3" />${formatCurrency(person.totalExpense)}</span>
                       </div>
                     </div>
-                    <div className="p-4 rounded-xl overflow-hidden bg-white/50">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          {person.categories[0].icon}
-                          <span className="font-medium">{person.categories[0].name}</span>
+                    <div className="mx-1 p-4 rounded-xl overflow-hidden bg-white/50 shadow-[0px_2px_2px_rgba(0,0,0,0.05)]">
+                      <div className="flex flex-col items-center justify-center py-8 text-center">
+                        <div className="w-16 h-16 mb-4 rounded-full flex items-center justify-center">
+                          <svg 
+                            xmlns="http://www.w3.org/2000/svg" 
+                            width="24" 
+                            height="24" 
+                            viewBox="0 0 24 24" 
+                            fill="none" 
+                            stroke="currentColor" 
+                            strokeWidth="2" 
+                            strokeLinecap="round" 
+                            strokeLinejoin="round" 
+                            className="text-gray-500"
+                          >
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                            <path d="M12 17h.01" />
+                          </svg>
                         </div>
-                      </div>
-                      <div className='flex items-center justify-between mt-2'>
-                        <div className="text-xl font-semibold text-gray-400">${formatCurrency(person.categories[0].amount)}</div>
-                        <div className="text-2xl font-bold text-gray-600">{person.categories[0].percentage}%</div>
+                        <h3 className="text-lg font-medium text-gray-700 mb-2">디자인 준비 중</h3>
+                        <p className="text-gray-500 mb-4">이 영역의 디자인이 아직 결정되지 않았습니다.</p>
                       </div>
                     </div>
                   </div>
@@ -215,7 +227,7 @@ export default function Budgets() {
                       <ResponsiveContainer width="100%" height={150}>
                         <LineChart 
                           data={person.chartData}
-                          margin={{ top: 10, right: 20, left: 20, bottom: 15 }}
+                          margin={{ top: 20, right: 20, left: 0, bottom: 0 }}
                         >
                           <XAxis 
                             dataKey="date" 
@@ -258,22 +270,6 @@ export default function Budgets() {
             </div>
           </div>
         ))}
-      </div>
-
-      {/* Badges */}
-      <div className="flex gap-4">
-        <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm">
-          <ThumbsUp className="w-5 h-5 text-yellow-500" />
-          <span className="text-sm font-medium">절약 달인 💪</span>
-        </div>
-        <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm">
-          <Flame className="w-5 h-5 text-orange-500" />
-          <span className="text-sm font-medium">지출 관리왕 🔥</span>
-        </div>
-        <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm">
-          <Star className="w-5 h-5 text-yellow-400" />
-          <span className="text-sm font-medium">예산 달성 👍</span>
-        </div>
       </div>
     </div>
   );
