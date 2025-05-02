@@ -1,4 +1,4 @@
-import {ChevronDown, ChevronRight, TrendingUp} from 'lucide-react';
+import { ChevronDown, ChevronRight, TrendingUp } from 'lucide-react';
 import RateCard from './RateCard';
 
 interface RevenueData {
@@ -13,14 +13,15 @@ interface RevenueProps {
 }
 
 export default function Revenue({ data = [] }: RevenueProps) {
-
   return (
     <div className="col-span-3 p-6">
       <div className="flex items-center justify-between">
-        <div className='flex flex-col gap-2'>
+        <div className="flex flex-col gap-2">
           <h2 className="text-lg font-bold text-gray-900">Expense</h2>
           <div className="flex items-center gap-2">
-            <h3 className="text-3xl font-bold text-gray-900">₩624,730<span className="text-gray-400 text-2xl">.82</span></h3>
+            <h3 className="text-3xl font-bold text-gray-900">
+              ₩624,730<span className="text-gray-400 text-2xl">.82</span>
+            </h3>
             <span className="px-2 py-1 text-xs font-medium bg-pink-600 text-white rounded-full flex items-center gap-1">
               <TrendingUp className="w-3 h-3" />
               5.2%
@@ -63,24 +64,12 @@ export default function Revenue({ data = [] }: RevenueProps) {
 
           {/* Rate cards */}
           <div className="flex gap-2">
-            <RateCard 
-              label="Deals"
-              value="256"
-              rate={-5}
-            />
-            <RateCard 
-              label="Value"
-              value="528k"
-              rate={7.9}
-            />
-            <RateCard 
-              label="Win rate"
-              value="44%"
-              rate={1.2}
-            />
+            <RateCard label="Deals" value="256" rate={-5} />
+            <RateCard label="Value" value="528k" rate={7.9} />
+            <RateCard label="Win rate" value="44%" rate={1.2} />
           </div>
         </div>
       </div>
     </div>
   );
-} 
+}

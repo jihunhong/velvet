@@ -1,5 +1,5 @@
 import { LayoutGrid, BarChart3, CircleDollarSign, Wallet, FileBarChart } from 'lucide-react';
-import Logo from './Logo'
+import Logo from './Logo';
 
 export default function Sidebar() {
   return (
@@ -32,4 +32,4 @@ export default function Sidebar() {
       </nav>
     </div>
   );
-} 
+}

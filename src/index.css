@@ -3,20 +3,30 @@
 @tailwind utilities;
 
 @layer base {
-  html, body, #root {
+  html,
+  body,
+  #root {
     @apply w-full h-full m-0 p-0;
   }
-  
+
   body {
     @apply bg-gray-50 text-gray-900;
-    font-family: 'Pretendard', system-ui, -apple-system, sans-serif;
+    font-family:
+      'Pretendard',
+      system-ui,
+      -apple-system,
+      sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 }
 
 :root {
-  font-family: 'Pretendard', system-ui, -apple-system, sans-serif;
+  font-family:
+    'Pretendard',
+    system-ui,
+    -apple-system,
+    sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -30,7 +40,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -98,11 +110,11 @@ button:focus-visible {
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background-color: #E5E7EB;
+    background-color: #e5e7eb;
     border-radius: 3px;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background-color: #D1D5DB;
+    background-color: #d1d5db;
   }
 }

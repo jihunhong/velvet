@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
-import {LineChart, Line, YAxis, XAxis, ResponsiveContainer} from 'recharts';
-import {ThumbsUp, Flame, Star, ChevronUp, ChevronDown, Utensils, ShoppingBag, TrendingDown} from 'lucide-react';
-import {format, subDays} from 'date-fns';
+import React, { useState } from 'react';
+import { LineChart, Line, YAxis, XAxis, ResponsiveContainer } from 'recharts';
+import { ThumbsUp, Flame, Star, ChevronUp, ChevronDown, Utensils, ShoppingBag, TrendingDown } from 'lucide-react';
+import { format, subDays } from 'date-fns';
 
 interface ChartData {
   date: Date;
@@ -33,15 +33,15 @@ const generateChartData = (baseValue: number, variance: number): ChartData[] => 
   const today = new Date();
   return Array.from({ length: 7 }, (_, i) => ({
     date: subDays(today, (6 - i) * 3),
-    value: baseValue + Math.random() * variance - variance / 2
+    value: baseValue + Math.random() * variance - variance / 2,
   }));
 };
 
 const expenseData: ExpenseData[] = [
   {
     id: 1,
-    name: "Macbook Air",
-    avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTm08Vubu3pKi9jDK6sdcr6NpHtFXlzmcjvyw&s",
+    name: 'Macbook Air',
+    avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTm08Vubu3pKi9jDK6sdcr6NpHtFXlzmcjvyw&s',
     totalExpense: 209633,
     transactions: 118,
     budget: 0.84,
@@ -50,18 +50,18 @@ const expenseData: ExpenseData[] = [
     overBudget: 29,
     categories: [
       {
-        name: "쇼핑",
+        name: '쇼핑',
         amount: 12399,
         percentage: 5.9,
-        icon: <ShoppingBag className="w-6 h-6 text-green-500" />
-      }
+        icon: <ShoppingBag className="w-6 h-6 text-green-500" />,
+      },
     ],
-    chartData: generateChartData(40, 10)
+    chartData: generateChartData(40, 10),
   },
   {
     id: 2,
-    name: "Salad",
-    avatar: "https://media.dongwon.com/assets/_temp/post/200603/01.jpg",
+    name: 'Salad',
+    avatar: 'https://media.dongwon.com/assets/_temp/post/200603/01.jpg',
     totalExpense: 156841,
     transactions: 103,
     budget: 0.89,
@@ -70,18 +70,18 @@ const expenseData: ExpenseData[] = [
     overBudget: 33,
     categories: [
       {
-        name: "식비",
+        name: '식비',
         amount: 71048,
         percentage: 45.3,
-        icon: <Utensils className="w-6 h-6 text-pink-500" />
+        icon: <Utensils className="w-6 h-6 text-pink-500" />,
       },
     ],
-    chartData: generateChartData(45, 15)
+    chartData: generateChartData(45, 15),
   },
   {
     id: 3,
-    name: "T-shirts",
-    avatar: "https://cdn.shopify.com/s/files/1/2987/0758/files/Pique_T-Shirt-T-Shirt-LDM101007-0101-Black-3.jpg?v=1702902050",
+    name: 'T-shirts',
+    avatar: 'https://cdn.shopify.com/s/files/1/2987/0758/files/Pique_T-Shirt-T-Shirt-LDM101007-0101-Black-3.jpg?v=1702902050',
     totalExpense: 117115,
     transactions: 84,
     budget: 0.79,
@@ -90,14 +90,14 @@ const expenseData: ExpenseData[] = [
     overBudget: 15,
     categories: [
       {
-        name: "쇼핑",
+        name: '쇼핑',
         amount: 9881,
         percentage: 8.4,
-        icon: <ShoppingBag className="w-6 h-6 text-green-500" />
-      }
+        icon: <ShoppingBag className="w-6 h-6 text-green-500" />,
+      },
     ],
-    chartData: generateChartData(35, 12)
-  }
+    chartData: generateChartData(35, 12),
+  },
 ];
 
 export default function Budgets() {
@@ -108,8 +108,10 @@ export default function Budgets() {
       style: 'currency',
       currency: 'USD',
       minimumFractionDigits: 0,
-      maximumFractionDigits: 0
-    }).format(amount).replace('$', '');
+      maximumFractionDigits: 0,
+    })
+      .format(amount)
+      .replace('$', '');
   };
 
   const formatChartDate = (date: Date) => {
@@ -134,16 +136,20 @@ export default function Budgets() {
           <div className="text-center">Transactions</div>
           <div className="text-center">Saving Rate</div>
         </div>
-        
+
         {expenseData.map((person) => (
-          <div 
-            key={person.id} 
-            onClick={() => handlePersonClick(person)}
+          <div
+            key={person.id}
+            onClick={() => {
+              handlePersonClick(person);
+            }}
             className={`rounded-xl overflow-hidden cursor-pointer transition-all duration-200
               ${selectedPerson.id === person.id ? 'shadow-[0_4px_12px_rgba(0,0,0,0.05)]' : 'shadow-[0px_2px_2px_rgba(0,0,0,0.05)]'}
               hover:shadow-[0_4px_12px_rgba(0,0,0,0.05)]`}
             style={{
-              background: selectedPerson.id === person.id ? `
+              background:
+                selectedPerson.id === person.id
+                  ? `
                 linear-gradient(
                   135deg,
                   #f8fbfd 0%,
@@ -155,7 +161,8 @@ export default function Budgets() {
                   #fffbf9 90%,
                   #fffdfb 100%
                 )
-              ` : 'white'
+              `
+                  : 'white',
             }}
           >
             <div className="p-4">
@@ -188,22 +195,23 @@ export default function Budgets() {
                       <h3 className="text-lg font-medium">Budget Performance</h3>
                       <div className="flex items-center gap-2">
                         <span className="flex items-center gap-1 bg-pink-500 text-white px-3 py-1 rounded-full text-sm">
-                          <TrendingDown className="w-3 h-3" />${formatCurrency(person.totalExpense)}</span>
+                          <TrendingDown className="w-3 h-3" />${formatCurrency(person.totalExpense)}
+                        </span>
                       </div>
                     </div>
                     <div className="mx-1 p-4 rounded-xl overflow-hidden bg-white/50 shadow-[0px_2px_2px_rgba(0,0,0,0.05)]">
                       <div className="flex flex-col items-center justify-center py-8 text-center">
                         <div className="w-16 h-16 mb-4 rounded-full flex items-center justify-center">
-                          <svg 
-                            xmlns="http://www.w3.org/2000/svg" 
-                            width="24" 
-                            height="24" 
-                            viewBox="0 0 24 24" 
-                            fill="none" 
-                            stroke="currentColor" 
-                            strokeWidth="2" 
-                            strokeLinecap="round" 
-                            strokeLinejoin="round" 
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                             className="text-gray-500"
                           >
                             <circle cx="12" cy="12" r="10" />
@@ -225,15 +233,12 @@ export default function Budgets() {
                     <div className="h-40 relative">
                       <div className="absolute inset-0 rounded-xl"></div>
                       <ResponsiveContainer width="100%" height={150}>
-                        <LineChart 
-                          data={person.chartData}
-                          margin={{ top: 20, right: 20, left: 0, bottom: 0 }}
-                        >
-                          <XAxis 
-                            dataKey="date" 
-                            stroke="#9CA3AF" 
-                            fontSize={12} 
-                            tickLine={false} 
+                        <LineChart data={person.chartData} margin={{ top: 20, right: 20, left: 0, bottom: 0 }}>
+                          <XAxis
+                            dataKey="date"
+                            stroke="#9CA3AF"
+                            fontSize={12}
+                            tickLine={false}
                             axisLine={false}
                             tickFormatter={formatChartDate}
                             interval={0}
@@ -242,21 +247,21 @@ export default function Budgets() {
                             textAnchor="middle"
                             height={40}
                           />
-                          <YAxis 
-                            stroke="#9CA3AF" 
-                            fontSize={12} 
-                            tickLine={false} 
+                          <YAxis
+                            stroke="#9CA3AF"
+                            fontSize={12}
+                            tickLine={false}
                             axisLine={false}
                             domain={['dataMin - 5', 'dataMax + 5']}
                             tickFormatter={formatYAxisValue}
                           />
-                          <Line 
-                            type="monotone" 
-                            dataKey="value" 
-                            stroke="#E91E63" 
+                          <Line
+                            type="monotone"
+                            dataKey="value"
+                            stroke="#E91E63"
                             strokeWidth={2}
                             dot={true}
-                            activeDot={{ r: 4, fill: "#E91E63" }}
+                            activeDot={{ r: 4, fill: '#E91E63' }}
                             isAnimationActive={true}
                             animationDuration={1500}
                             animationEasing="ease"
@@ -273,4 +278,4 @@ export default function Budgets() {
       </div>
     </div>
   );
-} 
+}

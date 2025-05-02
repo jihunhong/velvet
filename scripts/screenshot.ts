@@ -15,7 +15,7 @@ async function waitForServer(maxAttempts = 30): Promise<boolean> {
       // 서버가 아직 시작되지 않았거나 연결할 수 없는 상태
     }
     // 1초 대기
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     console.log(`서버 연결 시도 중... (${i + 1}/${maxAttempts})`);
   }
   return false;
@@ -30,7 +30,7 @@ async function updateReadmeScreenshot(screenshotPath: string) {
 
   let readmeContent = fs.readFileSync(readmePath, 'utf-8');
   const screenshotFileName = path.basename(screenshotPath);
-  
+
   // 정규식으로 스크린샷 경로를 찾아서 업데이트
   const regex = /<img src="docs\/assets\/\d{6}\.png"/;
   if (regex.test(readmeContent)) {
@@ -56,8 +56,8 @@ async function takeScreenshot() {
   const context = await browser.newContext({
     viewport: {
       width: 3840,
-      height: 1290
-    }
+      height: 1290,
+    },
   });
   const page = await context.newPage();
 
@@ -65,7 +65,7 @@ async function takeScreenshot() {
     console.log('페이지 로딩 중...');
     // localhost:5173에 접속
     await page.goto('http://localhost:5173');
-    
+
     // 페이지가 완전히 로드될 때까지 대기
     await page.waitForLoadState('networkidle');
 
@@ -81,9 +81,9 @@ async function takeScreenshot() {
 
     console.log('스크린샷 찍는 중...');
     // 전체 페이지 스크린샷 찍기
-    await page.screenshot({ 
+    await page.screenshot({
       path: screenshotPath,
-      fullPage: true 
+      fullPage: true,
     });
 
     console.log(`스크린샷이 저장되었습니다: ${screenshotPath}`);
@@ -97,4 +97,4 @@ async function takeScreenshot() {
   }
 }
 
-takeScreenshot(); 
+takeScreenshot();

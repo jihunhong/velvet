@@ -1,4 +1,4 @@
-# Velvet 
+# Velvet
 
 <div align="center">
   
@@ -6,7 +6,6 @@
 [![React](https://img.shields.io/badge/React-18.2.0-61dafb)](#)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0.0-3178c6)](#)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4.0-38bdf8)](#)
-
 
 </div>
 
@@ -19,16 +18,19 @@
 ## ✨ Features
 
 - 📊 **Dashboard**
+
   - Comprehensive Income/Expense Overview
   - Real-time Asset Tracking
   - Category-based Spending Analysis
 
 - 💰 **Budget Management**
+
   - Category Budget Setting
   - Budget Achievement Visualization
   - Fixed Expense Management
 
 - 📝 **Transaction History**
+
   - Multi-transaction Input Support
   - Calendar View
   - Smart Search
@@ -41,7 +43,9 @@
 ## 🚀 Development Status
 
 ### In Progress
+
 - [ ] Dashboard Page
+
   - [ ] Expense Status
   - [ ] Expense Charts
   - [ ] Average Spending
@@ -53,11 +57,14 @@
   - [ ] Calendar View
 
 ### Planned
+
 - [ ] Budget Page
+
   - [ ] Category Budget Settings
   - [ ] Budget Achievement Visualization
 
 - [ ] Savings Page
+
   - [ ] Savings Goal Setting
   - [ ] Savings Status Visualization
 
@@ -65,6 +72,7 @@
   - [ ] Account/Card Management
 
 ### Additional Features
+
 - [ ] Data Import/Export
 - [ ] Excel Export
 - [ ] Savings Streak
