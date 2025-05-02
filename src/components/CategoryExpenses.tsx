@@ -1,5 +1,5 @@
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Label } from 'recharts';
-import { ShoppingBag, Utensils } from 'lucide-react';
+import {ShoppingBag} from 'lucide-react';
+import {Bar, BarChart, CartesianGrid, ResponsiveContainer, XAxis} from 'recharts';
 
 interface CategoryExpensesProps {
   data: {
@@ -22,7 +22,7 @@ const CategoryExpenses = ({ data }: CategoryExpensesProps) => {
           <ShoppingBag size={30} className="text-green-500" />
         </div>
         <div>
-          <h3 className="text-base font-medium text-gray-500">카테고리별 지출</h3>
+          <h3 className="text-base font-bold text-gray-500">카테고리별 지출</h3>
           <span className="text-sm font-semibold">쇼핑</span>
         </div>
       </div>

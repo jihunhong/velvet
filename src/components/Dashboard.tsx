@@ -1,7 +1,7 @@
 import {format} from 'date-fns';
 import AccountList from './AccountList';
-import Budgets from './Budgets';
 import CategoryExpenses from './CategoryExpenses';
+import ExpenseList from './ExpenseList';
 import ExpenseRankingList from './ExpenseTracking';
 import Revenue from './Revenue';
 
@@ -148,19 +148,19 @@ export default function Dashboard({ timeframe, onTimeframeChange }: DashboardPro
         <Revenue data={mockData} />
       </div>
       <AccountList accounts={sampleAccounts} />
-      <div className='grid grid-rows-2 grid-cols-1 lg:grid-cols-4 gap-2 w-full'>
-        <div className='row-span-1'>
+      <div className="grid grid-rows-[362px_362px] grid-cols-1 lg:grid-cols-4 gap-2 w-full">
+        <div className="row-span-1">
           <ExpenseRankingList />
         </div>
-        <div className='row-span-1'>
+        <div className="row-span-1">
           <ExpenseRankingList />
         </div>
-        <div className='row-span-2 col-span-2'>
-          <Budgets />
+        <div className="row-span-2 col-span-2">
+          <ExpenseList />
         </div>
         <div className="row-span-1 col-span-2">
-        <CategoryExpenses data={categoryExpenseData} />
-      </div>
+          <CategoryExpenses data={categoryExpenseData} />
+        </div>
       </div>
       
     </div>

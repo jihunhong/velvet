@@ -1,4 +1,4 @@
-import { ChevronDown, ChevronRight, TrendingUp } from 'lucide-react';
+import {ChevronDown, ChevronRight, TrendingUp} from 'lucide-react';
 import RateCard from './RateCard';
 
 interface RevenueData {
@@ -13,7 +13,6 @@ interface RevenueProps {
 }
 
 export default function Revenue({ data = [] }: RevenueProps) {
-  console.log(data);
 
   return (
     <div className="col-span-3 p-6">
