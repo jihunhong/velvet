@@ -1,8 +1,9 @@
 import { chromium } from '@playwright/test';
+import { execSync } from 'child_process';
 import { format } from 'date-fns';
-import path from 'path';
 import fs from 'fs';
-import http from 'http';
+import path from 'path';
+import readline from 'readline';
 
 async function waitForServer(maxAttempts = 30): Promise<boolean> {
   for (let i = 0; i < maxAttempts; i++) {
@@ -42,6 +43,60 @@ async function updateReadmeScreenshot(screenshotPath: string) {
   }
 }
 
+function askQuestion(query: string): Promise<string> {
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  });
+
+  return new Promise((resolve) => {
+    rl.question(query, (answer) => {
+      rl.close();
+      resolve(answer.toLowerCase());
+    });
+  });
+}
+
+async function commitChanges(screenshotPath: string) {
+  try {
+    // 파일이 존재하는지 확인
+    if (!fs.existsSync(screenshotPath)) {
+      console.error('스크린샷 파일이 생성되지 않았습니다.');
+      return false;
+    }
+
+    // Git 상태 확인
+    const status = execSync('git status --porcelain').toString();
+    if (!status.includes(path.basename(screenshotPath))) {
+      console.log('변경된 파일이 없습니다.');
+      return false;
+    }
+
+    // 변경사항 스테이징
+    execSync(`git add ${screenshotPath}`);
+    execSync('git add README.md');
+
+    // 사용자에게 커밋 여부 확인
+    const answer = await askQuestion('변경사항을 커밋하시겠습니까? (y/n): ');
+    if (answer !== 'y') {
+      console.log('커밋이 취소되었습니다.');
+      return false;
+    }
+
+    // 커밋 메시지 생성
+    const today = format(new Date(), 'yyyy-MM-dd');
+    const commitMessage = `docs: Update screenshot (${today})`;
+
+    // 커밋 생성
+    execSync(`git commit -m "${commitMessage}"`);
+    console.log('변경사항이 성공적으로 커밋되었습니다.');
+    return true;
+  } catch (error) {
+    console.error('커밋 중 오류가 발생했습니다:', error);
+    return false;
+  }
+}
+
 async function takeScreenshot() {
   // 개발 서버가 실행 중인지 확인
   console.log('개발 서버 연결 확인 중...');
@@ -55,8 +110,8 @@ async function takeScreenshot() {
   const browser = await chromium.launch();
   const context = await browser.newContext({
     viewport: {
-      width: 3840,
-      height: 1290,
+      width: 2560,
+      height: 1440,
     },
   });
   const page = await context.newPage();
@@ -90,6 +145,9 @@ async function takeScreenshot() {
 
     // README.md 업데이트
     await updateReadmeScreenshot(screenshotPath);
+
+    // 변경사항 커밋
+    await commitChanges(screenshotPath);
   } catch (error) {
     console.error('스크린샷을 찍는 중 오류가 발생했습니다:', error);
   } finally {
