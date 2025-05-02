@@ -1,11 +1,9 @@
 import {format} from 'date-fns';
-import Revenue from './Revenue';
 import AccountList from './AccountList';
-import ExpenseRankingList from './ExpenseTracking';
 import Budgets from './Budgets';
 import CategoryExpenses from './CategoryExpenses';
-import {ChevronRight} from 'lucide-react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import ExpenseRankingList from './ExpenseTracking';
+import Revenue from './Revenue';
 
 interface DashboardProps {
   timeframe: {

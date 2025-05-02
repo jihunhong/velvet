@@ -1,5 +1,6 @@
+import {ChartBarDecreasing, ChartBarIncreasing, Filter} from 'lucide-react';
 import React, {useState} from 'react';
-import {Filter, Utensils, Home, Palette, ShoppingBag, ChartBarDecreasing, ChartBarIncreasing} from 'lucide-react';
+import CategoryIcon from './CategoryIcon';
 
 interface ExpenseData {
   id: number;
@@ -20,28 +21,28 @@ const ExpenseTracking = () => {
       category: '식비',
       amount: 327459,
       percentage: 43,
-      icon: <Utensils size={18} className="text-red-500" />
+      icon: CategoryIcon.Food
     },
     {
       id: 2,
       category: '공과금',
       amount: 142823,
       percentage: 27,
-      icon: <Home size={18} className="text-amber-500" />
+      icon: CategoryIcon.Housing
     },
     {
       id: 3,
       category: '취미',
       amount: 89935,
       percentage: 11,
-      icon: <Palette size={18} className="text-blue-500" />
+      icon: CategoryIcon.Hobby
     },
     {
       id: 4,
       category: '쇼핑',
       amount: 37028,
       percentage: 7,
-      icon: <ShoppingBag size={18} className="text-green-500" />
+      icon: CategoryIcon.Shopping
     }
   ];
 
