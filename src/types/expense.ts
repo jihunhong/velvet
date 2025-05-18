@@ -1,6 +1,13 @@
-export interface ExpenseFormData {
+export interface Expense {
+  id?: number;
   amount: number;
   category: string;
   description: string;
-  date: string; // ISO 형식 (예: 2024-05-01)
+  date: string;
 }
+
+// 저장용
+export type ExpenseFormData = Omit<Expense, 'id'>;
+
+// 조회용
+export type ExpenseRecord = Required<Expense>;

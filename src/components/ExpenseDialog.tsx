@@ -18,12 +18,15 @@ export default function ExpenseDialog({ open, onClose, onSave }: ExpenseDialogPr
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
+    const amountStr = String(formData.get('amount')).replace(/,/g, '');
     const expense: ExpenseFormData = {
-      amount: Number(formData.get('amount')),
+      amount: Number(amountStr),
       category: String(formData.get('category')),
       description: String(formData.get('description')),
       date: String(formData.get('date')),
     };
+    console.log(expense);
+
     onSave(expense);
     onClose();
   };

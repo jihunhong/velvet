@@ -1,21 +1,25 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import Dashboard from './components/Dashboard';
 import ExpenseDialog from './components/ExpenseDialog';
 import SearchBar from './components/SearchBar';
 import Sidebar from './components/Sidebar';
-import { ExpenseFormData } from './types/expense';
+import { addExpense } from './db/expenseDB';
 
-export default function App() {
+function App() {
   const [timeframe, setTimeframe] = useState({
     start: new Date(2024, 3, 1),
     end: new Date(2024, 3, 30),
   });
   const [open, setOpen] = useState(false);
 
-  const handleSave = (expense: ExpenseFormData) => {
-    // IndexedDB 저장 로직 연결
-    console.log('저장할 데이터:', expense);
-  };
+  const queryClient = useQueryClient();
+  const { mutate } = useMutation({
+    mutationFn: addExpense,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['expenses'] });
+    },
+  });
 
   return (
     <div
@@ -34,8 +38,10 @@ export default function App() {
         >
           +
         </button>
-        <ExpenseDialog open={open} onClose={() => setOpen(false)} onSave={handleSave} />
+        <ExpenseDialog open={open} onClose={() => setOpen(false)} onSave={mutate} />
       </main>
     </div>
   );
 }
+
+export default App;

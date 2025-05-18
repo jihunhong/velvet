@@ -1,16 +1,11 @@
+import { ExpenseRecord } from '@/types/expense';
+import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
 import { Calendar } from 'lucide-react';
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis } from 'recharts';
 import * as colors from '../common/colors/expenseCategory';
 import * as categoryNames from '../common/consants/categoryName';
-
-interface Expense {
-  id: number;
-  date: Date;
-  category: string;
-  description: string;
-  amount: number;
-}
+import { getAllExpenses } from '../db/expenseDB';
 
 const categoryColors: { [key: string]: string } = {
   [categoryNames.food]: colors.food, // 식사, 카페, 배달 등
@@ -24,139 +19,149 @@ const categoryColors: { [key: string]: string } = {
   [categoryNames.others]: colors.others, // 분류 어려운 지출
 };
 
-const mockExpenses: Expense[] = [
+const mockExpenses: ExpenseRecord[] = [
   {
     id: 1,
-    date: new Date(2024, 2, 15),
+    date: new Date(2024, 2, 15).toISOString(),
     category: categoryNames.food,
     description: '점심 식사',
     amount: 15000,
   },
   {
     id: 2,
-    date: new Date(2024, 2, 14),
+    date: new Date(2024, 2, 14).toISOString(),
     category: categoryNames.transportation,
     description: '택시비',
     amount: 8000,
   },
   {
     id: 3,
-    date: new Date(2024, 2, 13),
+    date: new Date(2024, 2, 13).toISOString(),
     category: categoryNames.housing,
     description: '월세',
     amount: 500000,
   },
   {
     id: 4,
-    date: new Date(2024, 2, 12),
+    date: new Date(2024, 2, 12).toISOString(),
     category: categoryNames.food,
     description: '저녁 식사',
     amount: 25000,
   },
   {
     id: 5,
-    date: new Date(2024, 2, 11),
+    date: new Date(2024, 2, 11).toISOString(),
     category: categoryNames.utils,
     description: '전기세',
     amount: 65000,
   },
   {
     id: 6,
-    date: new Date(2024, 2, 10),
+    date: new Date(2024, 2, 10).toISOString(),
     category: categoryNames.shopping,
     description: '옷 구매',
     amount: 89000,
   },
   {
     id: 7,
-    date: new Date(2024, 2, 9),
+    date: new Date(2024, 2, 9).toISOString(),
     category: categoryNames.health,
     description: '병원 진료',
     amount: 35000,
   },
   {
     id: 8,
-    date: new Date(2024, 2, 8),
+    date: new Date(2024, 2, 8).toISOString(),
     category: categoryNames.hobby,
     description: '영화 관람',
     amount: 14000,
   },
   {
     id: 9,
-    date: new Date(2024, 2, 7),
+    date: new Date(2024, 2, 7).toISOString(),
     category: categoryNames.saving,
     description: '적금',
     amount: 300000,
   },
   {
     id: 10,
-    date: new Date(2024, 2, 6),
+    date: new Date(2024, 2, 6).toISOString(),
     category: categoryNames.food,
     description: '카페',
     amount: 4500,
   },
   {
     id: 11,
-    date: new Date(2024, 2, 5),
+    date: new Date(2024, 2, 5).toISOString(),
     category: categoryNames.transportation,
     description: '지하철',
     amount: 1400,
   },
   {
     id: 12,
-    date: new Date(2024, 2, 4),
+    date: new Date(2024, 2, 4).toISOString(),
     category: categoryNames.utils,
     description: '인터넷 요금',
     amount: 35000,
   },
   {
     id: 13,
-    date: new Date(2024, 2, 3),
+    date: new Date(2024, 2, 3).toISOString(),
     category: categoryNames.hobby,
     description: '헬스장 회비',
     amount: 100000,
   },
   {
     id: 14,
-    date: new Date(2024, 2, 2),
+    date: new Date(2024, 2, 2).toISOString(),
     category: categoryNames.shopping,
     description: '온라인 쇼핑',
     amount: 75000,
   },
   {
     id: 15,
-    date: new Date(2024, 2, 1),
+    date: new Date(2024, 2, 1).toISOString(),
     category: categoryNames.others,
     description: '선물',
     amount: 50000,
   },
 ];
 
-const generateDailyChartData = () => {
-  const sortedExpenses = [...mockExpenses].sort((a, b) => a.date.getTime() - b.date.getTime());
-
-  // 한 달의 시작일과 마지막일 구하기
-  const firstDate = new Date(2024, 2, 1); // 3월 1일
-  const lastDate = new Date(2024, 2, 31); // 3월 31일
-
-  // 한 달 전체 날짜에 대한 데이터 생성
+const generateDailyChartData = (expenses: ExpenseRecord[]) => {
+  const sortedExpenses = [...expenses].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+  const firstDate = new Date(2024, 2, 1);
+  const lastDate = new Date(2024, 2, 31);
   const dailyData = [];
   for (let date = new Date(firstDate); date <= lastDate; date.setDate(date.getDate() + 1)) {
     const formattedDate = format(date, 'MM.dd');
-    const expense = sortedExpenses.find((e) => format(e.date, 'MM.dd') === formattedDate);
-
+    const expense = sortedExpenses.find((e) => format(new Date(e.date), 'MM.dd') === formattedDate);
     dailyData.push({
       date: formattedDate,
       value: expense ? expense.amount : null,
     });
   }
-
   return dailyData;
 };
 
 export default function ExpenseList() {
-  const dailyChartData = generateDailyChartData();
-  const totalSpent = mockExpenses.reduce((sum, expense) => sum + expense.amount, 0);
+  const {
+    data: expenses,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ['getAllExpenses'],
+    queryFn: getAllExpenses,
+  });
+
+  console.log('expenses', expenses);
+
+  const expenseData: ExpenseRecord[] = expenses && expenses.length > 0 ? expenses : mockExpenses;
+
+  const dailyChartData = generateDailyChartData(expenseData);
+  const totalSpent = expenseData.reduce((sum, expense) => sum + expense.amount, 0);
+
+  if (isLoading) return <div className="p-8 text-center text-gray-400">로딩 중...</div>;
+  if (isError) return <div className="p-8 text-center text-red-400">지출 내역을 불러오지 못했습니다.</div>;
 
   return (
     <div className="bg-white rounded-[20px] px-6 py-1 h-full flex flex-col">
@@ -209,9 +214,9 @@ export default function ExpenseList() {
         </div>
       </div>
       <div className="space-y-4 overflow-y-auto flex-1 pr-2 custom-scrollbar">
-        {mockExpenses.map((expense) => (
+        {expenseData.map((expense, idx) => (
           <div
-            key={expense.id}
+            key={expense.id ?? idx}
             className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-all duration-200 ease-in-out cursor-pointer"
           >
             <div className="flex items-center gap-3">
