@@ -118,3 +118,22 @@ button:focus-visible {
     background-color: #d1d5db;
   }
 }
+
+.animate-input-container {
+  position: relative;
+  border-bottom: 1px solid #e5e7eb; /* Tailwind gray-300 */
+}
+.animate-input-container::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 100%;
+  border-bottom: 2px solid #22c55e; /* Tailwind green-500 */
+  transform: scaleX(0);
+  transition: transform 0.25s;
+  pointer-events: none;
+}
+.animate-input-container:focus-within::after {
+  transform: scaleX(1);
+}

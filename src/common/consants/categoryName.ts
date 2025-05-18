@@ -7,3 +7,15 @@ export const hobby = '취미·여가';
 export const shopping = '쇼핑';
 export const saving = '저축·투자';
 export const others = '기타';
+
+export const categoryList = [
+  { value: 'food', label: food },
+  { value: 'housing', label: housing },
+  { value: 'utils', label: utils },
+  { value: 'transportation', label: transportation },
+  { value: 'health', label: health },
+  { value: 'hobby', label: hobby },
+  { value: 'shopping', label: shopping },
+  { value: 'saving', label: saving },
+  { value: 'others', label: others },
+];
