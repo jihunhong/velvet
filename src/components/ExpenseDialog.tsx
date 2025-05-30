@@ -45,7 +45,9 @@ const ExpenseDialog = ({ isOpen, onClose, onSave }: ExpenseDialogProps) => {
 
   useEffect(() => {
     if (isOpen) {
-      descriptionRef.current?.focus();
+      setTimeout(() => {
+        descriptionRef.current?.focus();
+      }, 300);
     }
   }, [isOpen]);
 
