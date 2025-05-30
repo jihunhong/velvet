@@ -17,7 +17,7 @@ function App() {
   const { mutate } = useMutation({
     mutationFn: addExpense,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['expenses'] });
+      queryClient.refetchQueries({ queryKey: ['getAllExpenses'] });
     },
   });
 
@@ -38,7 +38,7 @@ function App() {
         >
           +
         </button>
-        <ExpenseDialog open={open} onClose={() => setOpen(false)} onSave={mutate} />
+        <ExpenseDialog isOpen={open} onClose={() => setOpen(false)} onSave={mutate} />
       </main>
     </div>
   );

@@ -46,6 +46,14 @@
   box-sizing: border-box;
 }
 
+
+*:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -67,6 +75,8 @@ h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
+
+
 
 button {
   border-radius: 8px;
@@ -129,7 +139,7 @@ button:focus-visible {
   left: 0;
   bottom: -1px;
   width: 100%;
-  border-bottom: 2px solid #22c55e; /* Tailwind green-500 */
+  border-bottom: 2px solid #374151;
   transform: scaleX(0);
   transition: transform 0.25s;
   pointer-events: none;
