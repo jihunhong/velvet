@@ -6,6 +6,12 @@ export interface Expense {
   date: string;
 }
 
+export interface DailyExpenseSummary {
+  date: string;
+  amount: number;
+  count: number;
+}
+
 // 저장용
 export type ExpenseFormData = Omit<Expense, 'id'>;
 

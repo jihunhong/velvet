@@ -1,9 +1,0 @@
-export const food = '#e7345f';
-export const housing = '#9bd248';
-export const utils = '#FFD93D';
-export const transportation = '#6C5CE7';
-export const health = '#FF8B94';
-export const hobby = '#FF6B35';
-export const shopping = '#FF9F1C';
-export const saving = '#2EC4B6';
-export const others = '#95A5A6';
