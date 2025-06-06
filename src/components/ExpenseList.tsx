@@ -46,7 +46,7 @@ export default function ExpenseList() {
               <span className="text-gray-950 text-4xl font-bold tracking-tight">{totalSpent.toLocaleString()}원</span>
             </div>
 
-            <div className="flex items-center mt-1">
+            <div className="flex items-center">
               <span className="text-gray-950 text-md font-bold tracking-tight">
                 이번달은 <span className="text-blue-700">어쩌구 저쩌구</span> 이렇게 저렇게 쓰셨네요
               </span>
