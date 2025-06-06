@@ -1,8 +1,11 @@
 import { format } from 'date-fns';
+import { budgets } from '../../tests/budgets';
 import AccountList from './AccountList';
+import { BudgetCardsList } from './BudgetCardsList';
 import CategoryExpenses from './CategoryExpenses';
 import ExpenseList from './ExpenseList';
-import ExpenseTracking from './ExpenseTracking';
+import Header from './Layout/Header';
+import Panel from './Layout/Panel';
 import Revenue from './Revenue';
 
 interface DashboardProps {
@@ -152,12 +155,15 @@ export default function Dashboard({ timeframe, onTimeframeChange }: DashboardPro
       </div>
       <AccountList accounts={sampleAccounts} />
       <div className="grid grid-rows-[362px_362px] grid-cols-1 lg:grid-cols-4 gap-2 w-full">
-        <div className="row-span-1">
-          <ExpenseTracking />
-        </div>
-        <div className="row-span-1">
-          <ExpenseTracking />
-        </div>
+        <Panel rowSpan={1} colSpan={2}>
+          <div className="flex flex-col gap-0.5">
+            <Header level={3} colorClass="bg-blue-500" textClass="text-black text-shadow tracking-tight">
+              예산 관리
+            </Header>
+            <p className="text-sm text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p>
+          </div>
+          <BudgetCardsList budgets={budgets} />
+        </Panel>
         <div className="row-span-2 col-span-2">
           <ExpenseList />
         </div>
