@@ -12,7 +12,7 @@
 > Personal Finance Management Web Application
 
 <div align="center">
-  <img src="docs/assets/250603.png" alt="Velvet Dashboard Preview" width="100%" />
+  <img src="docs/assets/250607.png" alt="Velvet Dashboard Preview" width="100%" />
 </div>
 
 ## ✨ Features
