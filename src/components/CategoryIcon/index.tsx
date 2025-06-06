@@ -1,6 +1,6 @@
 import { Bus, ChartCandlestick, Flame, Hamburger, Heart, Home, MoreHorizontal, ShoppingBag, Zap } from 'lucide-react';
 import React from 'react';
-import * as colors from '../../common/consants/expenseCategory';
+import * as colors from '../../common/constants/expenseCategory';
 
 interface CategoryIconProps {
   icon: React.ReactNode;

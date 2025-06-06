@@ -1,7 +1,7 @@
 import { ExpenseFormData } from '@/types/expense';
 import { ChevronDown, Maximize2, X } from 'lucide-react';
 import { useEffect, useRef } from 'react';
-import { categoryList } from '..//common/consants/categoryName';
+import { categoryList } from '../common/constants/categoryName';
 import CommonInput from './CommonInput';
 import Logo from './Logo';
 

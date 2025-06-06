@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis } from 'recharts';
 
-import { getCategoryColor } from '../common/consants/expenseCategory';
+import { getCategoryColor } from '../common/constants/expenseCategory';
 import { getCurrentMonthExpenses, getRecentWeekAmounts } from '../db/expenseDB';
 export default function ExpenseList() {
   const {
@@ -36,7 +36,7 @@ export default function ExpenseList() {
     <div className="bg-white rounded-[20px] px-6 py-1 h-full flex flex-col">
       <div className="grid grid-cols-7 gap-6 mb-6">
         <div className="col-span-4 flex justify-between items-center w-full">
-          <div className="flex flex-col items-start w-full h-full gap-2">
+          <div className="flex flex-col items-start w-full h-full gap-3">
             <div className="flex items-center gap-[1.4rem]">
               <ChevronLeft className="w-4 h-4 text-gray-600 dropshadow" />
               <span className="font-semibold text-lg text-gray-950 text-shadow underline underline-offset-4">{dayjs().get('month') + 1}월</span>
@@ -46,7 +46,7 @@ export default function ExpenseList() {
               <span className="text-gray-950 text-4xl font-bold tracking-tight">{totalSpent.toLocaleString()}원</span>
             </div>
 
-            <div className="flex items-center">
+            <div className="flex items-center mt-1">
               <span className="text-gray-950 text-md font-bold tracking-tight">
                 이번달은 <span className="text-blue-700">어쩌구 저쩌구</span> 이렇게 저렇게 쓰셨네요
               </span>
