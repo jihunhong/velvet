@@ -64,9 +64,9 @@ export default function Revenue({ data = [] }: RevenueProps) {
 
           {/* Rate cards */}
           <div className="flex gap-2">
-            <RateCard label="Deals" value="256" rate={-5} />
-            <RateCard label="Value" value="528k" rate={7.9} />
-            <RateCard label="Win rate" value="44%" rate={1.2} />
+            <RateCard label="Count" value="256" rate={-5} />
+            <RateCard label="Amount" value="528k" rate={7.9} />
+            <RateCard label="Rate" value="44%" rate={1.2} />
           </div>
         </div>
       </div>

@@ -2,7 +2,7 @@ import { format } from 'date-fns';
 import { budgets } from '../../tests/budgets';
 import AccountList from './AccountList';
 import { BudgetCardsList } from './BudgetCardsList';
-import CategoryExpenses from './CategoryExpenses';
+import BudgetSummaryProgress from './BudgetSummaryProgress';
 import ExpenseList from './ExpenseList';
 import Header from './Layout/Header';
 import Panel from './Layout/Panel';
@@ -119,6 +119,8 @@ const categoryExpenseData = [
   },
 ];
 
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+
 export default function Dashboard({ timeframe, onTimeframeChange }: DashboardProps) {
   return (
     <div className="bg-white rounded-[20px] p-6 space-y-6 w-full">
@@ -154,22 +156,28 @@ export default function Dashboard({ timeframe, onTimeframeChange }: DashboardPro
         <Revenue data={mockData} />
       </div>
       <AccountList accounts={sampleAccounts} />
-      <div className="grid grid-rows-[362px_362px] grid-cols-1 lg:grid-cols-4 gap-2 w-full">
-        <Panel rowSpan={1} colSpan={2}>
+      <div className="grid grid-rows-[362px_362px] grid-cols-4 gap-2 w-full">
+        <Panel rowSpan={2} colSpan={2}>
           <div className="flex flex-col gap-0.5">
             <Header level={3} colorClass="bg-blue-500" textClass="text-black text-shadow tracking-tight">
               예산 관리
             </Header>
             <p className="text-sm text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p>
           </div>
-          <BudgetCardsList budgets={budgets} />
+          <div className="flex flex-col gap-8">
+            <div className="row-span-2 flex flex-col justify-center py-2 gap-2">
+              <p className="text-5xl font-semibold text-gray-900 tracking-tight">
+                665,421<span className="text-gray-400 text-4xl">.82</span>
+              </p>
+              <p className="text-sm text-gray-500 font-semibold">cupidatat non proident</p>
+            </div>
+            <BudgetCardsList budgets={budgets} />
+            <BudgetSummaryProgress budgets={budgets} />
+          </div>
         </Panel>
-        <div className="row-span-2 col-span-2">
+        <Panel rowSpan={2} colSpan={2}>
           <ExpenseList />
-        </div>
-        <div className="row-span-1 col-span-2">
-          <CategoryExpenses data={categoryExpenseData} />
-        </div>
+        </Panel>
       </div>
     </div>
   );
