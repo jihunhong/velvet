@@ -4,6 +4,7 @@ import { format } from 'date-fns';
 import fs from 'fs';
 import path from 'path';
 import readline from 'readline';
+import { seedExpenses } from './expenses';
 
 async function waitForServer(maxAttempts = 30): Promise<boolean> {
   for (let i = 0; i < maxAttempts; i++) {
@@ -107,22 +108,63 @@ async function takeScreenshot() {
   }
 
   console.log('브라우저 시작 중...');
-  const browser = await chromium.launch();
+  const browser = await chromium.launch({ headless: false });
   const context = await browser.newContext({
     viewport: {
       width: 2560,
-      height: 1440,
+      height: 1280,
     },
   });
   const page = await context.newPage();
 
   try {
     console.log('페이지 로딩 중...');
-    // localhost:5173에 접속
     await page.goto('http://localhost:5173');
-
-    // 페이지가 완전히 로드될 때까지 대기
     await page.waitForLoadState('networkidle');
+
+    // IndexedDB에 샘플 데이터 세팅
+    await page.evaluate((expenses) => {
+      return new Promise<void>((resolve, reject) => {
+        const request = indexedDB.open('expense-db', 1);
+        request.onupgradeneeded = function () {
+          const db = request.result;
+          if (!db.objectStoreNames.contains('expenses')) {
+            const store = db.createObjectStore('expenses', { keyPath: 'id', autoIncrement: true });
+            store.createIndex('by-date', 'date');
+          }
+        };
+        request.onsuccess = function () {
+          const db = request.result;
+          // 기존 데이터 모두 삭제 (초기화)
+          const txClear = db.transaction('expenses', 'readwrite');
+          const storeClear = txClear.objectStore('expenses');
+          const clearReq = storeClear.clear();
+          clearReq.onsuccess = function () {
+            // 데이터 삽입
+            const tx = db.transaction('expenses', 'readwrite');
+            const store = tx.objectStore('expenses');
+            expenses.forEach((expense) => {
+              store.put(expense);
+            });
+            tx.oncomplete = function () {
+              db.close();
+              resolve();
+            };
+            tx.onerror = reject;
+          };
+          clearReq.onerror = reject;
+        };
+        request.onerror = reject;
+      });
+    }, seedExpenses);
+
+    // 새로고침하여 seed 데이터가 mount 시점에 반영되도록 함
+    await page.reload();
+    await page.waitForLoadState('networkidle');
+
+    // ExpenseDialog 열기 버튼 클릭
+    await page.click('button:has-text("+")');
+    await page.waitForTimeout(500);
 
     // docs/assets 폴더가 없으면 생성
     const assetsDir = path.join(process.cwd(), 'docs', 'assets');
