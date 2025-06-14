@@ -2,8 +2,8 @@ import { format } from 'date-fns';
 import { budgets } from '../../tests/budgets';
 import AccountList from './AccountList';
 import { BudgetCardsList } from './BudgetCardsList';
-import BudgetSummaryProgress from './BudgetSummaryProgress';
 import ExpenseList from './ExpenseList';
+import HorizontalTimeline from './HorizontalTimeline';
 import Header from './Layout/Header';
 import Panel from './Layout/Panel';
 import Revenue from './Revenue';
@@ -56,75 +56,9 @@ const sampleAccounts = [
   },
 ];
 
-const categoryExpenseData = [
-  {
-    month: '9월',
-    categories: [
-      {
-        amount: 6901000,
-        category: '식비',
-        avatar: 'https://cdn-icons-png.flaticon.com/512/1046/1046784.png',
-      },
-      {
-        amount: 4500000,
-        category: '주거',
-        avatar: 'https://cdn-icons-png.flaticon.com/512/1670/1670080.png',
-      },
-      {
-        amount: 3200000,
-        category: '교통',
-        avatar: 'https://cdn-icons-png.flaticon.com/512/3097/3097180.png',
-      },
-    ],
-  },
-  {
-    month: '10월',
-    categories: [
-      {
-        amount: 11035000,
-        category: '식비',
-        avatar: 'https://cdn-icons-png.flaticon.com/512/1046/1046784.png',
-      },
-      {
-        amount: 4800000,
-        category: '주거',
-        avatar: 'https://cdn-icons-png.flaticon.com/512/1670/1670080.png',
-      },
-      {
-        amount: 3500000,
-        category: '교통',
-        avatar: 'https://cdn-icons-png.flaticon.com/512/3097/3097180.png',
-      },
-    ],
-  },
-  {
-    month: '11월',
-    categories: [
-      {
-        amount: 9288000,
-        category: '식비',
-        avatar: 'https://cdn-icons-png.flaticon.com/512/1046/1046784.png',
-      },
-      {
-        amount: 4600000,
-        category: '주거',
-        avatar: 'https://cdn-icons-png.flaticon.com/512/1670/1670080.png',
-      },
-      {
-        amount: 3300000,
-        category: '교통',
-        avatar: 'https://cdn-icons-png.flaticon.com/512/3097/3097180.png',
-      },
-    ],
-  },
-];
-
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
-
 export default function Dashboard({ timeframe, onTimeframeChange }: DashboardProps) {
   return (
     <div className="bg-white rounded-[20px] p-6 space-y-6 w-full">
-      {/* 헤더 섹션 */}
       <div className="flex items-center justify-between w-full">
         <div className="flex items-center gap-2">
           <h1 className="text-2xl font-semibold text-gray-400 opacity-70">New report</h1>
@@ -152,14 +86,14 @@ export default function Dashboard({ timeframe, onTimeframeChange }: DashboardPro
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full">
-        {/* Revenue 컴포넌트 */}
         <Revenue data={mockData} />
       </div>
+
       <AccountList accounts={sampleAccounts} />
-      <div className="grid grid-rows-[362px_362px] grid-cols-4 gap-2 w-full">
-        <Panel rowSpan={2} colSpan={2}>
+      <div className="grid grid-rows-[362px_362px] grid-cols-4 gap-y-6 gap-4 w-full">
+        <Panel rowSpan={1} colSpan={2}>
           <div className="flex flex-col gap-0.5">
-            <Header level={3} colorClass="bg-blue-500" textClass="text-black text-shadow tracking-tight">
+            <Header level={3} colorClass="bg-pink-500" textClass="text-black text-shadow tracking-tight">
               예산 관리
             </Header>
             <p className="text-sm text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p>
@@ -172,11 +106,48 @@ export default function Dashboard({ timeframe, onTimeframeChange }: DashboardPro
               <p className="text-sm text-gray-500 font-semibold">cupidatat non proident</p>
             </div>
             <BudgetCardsList budgets={budgets} />
-            <BudgetSummaryProgress budgets={budgets} />
           </div>
         </Panel>
+
         <Panel rowSpan={2} colSpan={2}>
           <ExpenseList />
+        </Panel>
+        <Panel rowSpan={1} colSpan={2}>
+          <div className="grid grid-cols-7 gap-2">
+            <HorizontalTimeline
+              containerClassName="col-span-7 row-span-1"
+              sections={[
+                {
+                  label: '2025-06-11',
+                  value: 31,
+                },
+                {
+                  label: '2025-06-12',
+                  value: 24,
+                },
+                {
+                  label: '2025-06-13',
+                  value: 7,
+                },
+                {
+                  label: '2025-06-14',
+                  value: 6,
+                },
+                {
+                  label: '2025-06-15',
+                  value: 2,
+                },
+                {
+                  label: '2025-06-16',
+                  value: 12,
+                },
+              ]}
+            />
+          </div>
+          <div className="flex flex-col justify-start mt-8 w-full h-full">
+            <p className="w-full text-sm text-gray-500">Eius magni vitae reprehenderit rem eum alias libero atque</p>
+            <p className="w-full text-md font-medium text-gray-800">excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.</p>
+          </div>
         </Panel>
       </div>
     </div>

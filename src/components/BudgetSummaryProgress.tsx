@@ -8,7 +8,7 @@ interface BudgetSummaryProgressProps {
 
 export default function BudgetSummaryProgress({ budgets }: BudgetSummaryProgressProps) {
   return (
-    <section className="w-full grid grid-rows-[repeat(5,60px)] gap-2 bg-white">
+    <section className="w-full grid grid-rows-[repeat(6,60px)] gap-2 bg-white">
       <div className="row-span-2 flex items-center justify-start gap-4 overflow-x-auto overflow-y-hidden snap-x snap-mandatory scrollbar-hide">
         <WeeklyDotChart weeks={[2, 34, 26, 5, 13]} dotColor={housing} />
         <WeeklyDotChart weeks={[2, 7, 6, 5, 3]} dotColor={food} />
@@ -23,7 +23,8 @@ export default function BudgetSummaryProgress({ budgets }: BudgetSummaryProgress
         <WeeklyDotChart weeks={[20, 18, 16, 14, 12]} dotColor="#FF006E" />
         <WeeklyDotChart weeks={[24, 11, 7, 11, 43]} dotColor={others} />
       </div>
-      <div className="row-span-1 flex flex-col justify-end">
+
+      <div className="row-span-2 flex flex-col justify-end">
         <p className="text-sm text-gray-500">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
         <p className="text-sm text-gray-500">excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.</p>
       </div>

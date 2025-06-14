@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import Dot from './Dot';
 import { calculateDots, formatCount } from './utils';
 
 interface WeeklyDotChartProps {
@@ -27,14 +28,7 @@ const WeeklyDotChart: React.FC<WeeklyDotChartProps> = ({ weeks: data, containerC
           <div key={week.week} className="flex flex-col items-center group relative">
             <div className="flex flex-col-reverse gap-1 mb-3">
               {Array.from({ length: week.dots }).map((_, dotIndex) => (
-                <div
-                  key={dotIndex}
-                  className={`w-[12px] h-[12px] rounded-full transition-all duration-300 hover:scale-110 ${dotClassName}`}
-                  style={{
-                    backgroundColor: dotColor,
-                    boxShadow: `0 0px 6px ${dotColor}66`,
-                  }}
-                />
+                <Dot key={dotIndex} dotColor={dotColor} dotClassName={dotClassName} />
               ))}
             </div>
 
