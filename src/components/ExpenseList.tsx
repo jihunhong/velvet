@@ -6,6 +6,7 @@ import { Area, AreaChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis } fro
 
 import { getCategoryColor } from '../common/constants/expenseCategory';
 import { getCurrentMonthExpenses, getRecentWeekAmounts } from '../db/expenseDB';
+import Calendar from './Calendar';
 export default function ExpenseList() {
   const {
     data: expenses,
@@ -46,10 +47,7 @@ export default function ExpenseList() {
               <span className="text-gray-950 text-4xl font-bold tracking-tight">{totalSpent.toLocaleString()}원</span>
             </div>
 
-            <span className="text-gray-950 text-md font-bold tracking-tight line-clamp-1">
-              Optio dolore rem fuga incidunt <span className="text-blue-700">ratione aliquam laudantium,</span> tempora facere architecto numquam odio
-              mollitia molestiae placeat enim asperiores amet at distinctio expedita! adipisicing elit.
-            </span>
+            <Calendar />
           </div>
         </div>
 
