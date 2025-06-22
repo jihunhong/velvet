@@ -2,6 +2,7 @@ import { format } from 'date-fns';
 import { budgets } from '../../tests/budgets';
 import AccountList from './AccountList';
 import { BudgetCardsList } from './BudgetCardsList';
+import BudgetsInsights from './BudgetsInsights';
 import ExpenseList from './ExpenseList';
 import HorizontalTimeline from './HorizontalTimeline';
 import Header from './Layout/Header';
@@ -90,7 +91,7 @@ export default function Dashboard({ timeframe, onTimeframeChange }: DashboardPro
       </div>
 
       <AccountList accounts={sampleAccounts} />
-      <div className="grid grid-rows-[362px_362px] grid-cols-4 gap-y-6 gap-4 w-full">
+      <div className="grid grid-rows-[546px_330px] grid-cols-4 gap-y-8 gap-4 w-full">
         <Panel rowSpan={1} colSpan={2}>
           <div className="flex flex-col gap-0.5">
             <Header level={3} colorClass="bg-pink-500" textClass="text-black text-shadow tracking-tight">
@@ -98,14 +99,13 @@ export default function Dashboard({ timeframe, onTimeframeChange }: DashboardPro
             </Header>
             <p className="text-sm text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p>
           </div>
-          <div className="flex flex-col gap-8">
-            <div className="row-span-2 flex flex-col justify-center py-2 gap-2">
-              <p className="text-5xl font-semibold text-gray-900 tracking-tight">
-                665,421<span className="text-gray-400 text-4xl">.82</span>
-              </p>
-              <p className="text-sm text-gray-500 font-semibold">cupidatat non proident</p>
+          <div className="flex flex-col gap-4 h-full">
+            <div className="flex flex-col gap-3 overflow-y-auto pr-2  custom-scrollbar">
+              <BudgetsInsights />
             </div>
-            <BudgetCardsList budgets={budgets} />
+            <div className="flex flex-col gap-8">
+              <BudgetCardsList budgets={budgets} />
+            </div>
           </div>
         </Panel>
 
@@ -144,7 +144,7 @@ export default function Dashboard({ timeframe, onTimeframeChange }: DashboardPro
               ]}
             />
           </div>
-          <div className="flex flex-col justify-start mt-8 w-full h-full">
+          <div className="flex flex-col justify-start mt-4   w-full h-full">
             <p className="w-full text-sm text-gray-500">Eius magni vitae reprehenderit rem eum alias libero atque</p>
             <p className="w-full text-md font-medium text-gray-800">excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.</p>
           </div>
