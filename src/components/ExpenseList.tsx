@@ -7,6 +7,8 @@ import { Area, AreaChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis } fro
 import { getCategoryColor } from '../common/constants/expenseCategory';
 import { getCurrentMonthExpenses, getRecentWeekAmounts } from '../db/expenseDB';
 import Calendar from './Calendar';
+import ExpenseInsight from './ExpenseInsight';
+
 export default function ExpenseList() {
   const {
     data: expenses,
@@ -44,9 +46,13 @@ export default function ExpenseList() {
               <ChevronRight className="w-4 h-4 text-gray-600 dropshadow" />
             </div>
             <div className="flex items-center">
-              <span className="text-gray-950 text-4xl font-bold tracking-tight">{totalSpent.toLocaleString()}원</span>
+              <p className="text-gray-900 text-3xl font-bold tracking-tight">
+                ₩{totalSpent.toLocaleString()}
+                <span className="text-gray-400 text-2xl">.32</span>
+              </p>
             </div>
 
+            <ExpenseInsight expenses={expenses} />
             <Calendar />
           </div>
         </div>
