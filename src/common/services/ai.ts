@@ -2,32 +2,7 @@ import type { Budget } from '../../types/budget';
 import type { Expense } from '../../types/expense';
 import { budgetSystemPrompt } from '../constants/prompts/budgetPrompt';
 import { expenseSystemPrompt } from '../constants/prompts/expensePrompt';
-
-const formatDataForPrompt = (promptType: 'budget' | 'expense', expenses: Expense[], budgets?: Budget[]): string => {
-  let data: object;
-
-  if (promptType === 'budget' && budgets) {
-    data = {
-      budgets: budgets.map((b) => ({ category: b.category, amount: b.budget })),
-      expenses: expenses.map((e) => ({
-        category: e.category,
-        amount: e.amount,
-        date: e.date,
-        description: e.description,
-      })),
-    };
-  } else {
-    data = {
-      expenses: expenses.map((e) => ({
-        category: e.category,
-        amount: e.amount,
-        date: e.date,
-        description: e.description,
-      })),
-    };
-  }
-  return JSON.stringify(data, null, 2);
-};
+import { budgetSchema } from '../constants/schema/budgetSchema';
 
 // LanguageModel API의 타입 정의 (window 객체에 추가)
 declare global {
@@ -73,7 +48,8 @@ const executePrompt = async (
   session: any, // session 타입이 복잡하여 any로 처리
   promptData: object,
   onChunk: (chunk: string) => void,
-  onComplete: (fullText: string) => void
+  onComplete: (fullText: string) => void,
+  schema: Record<string, any>
 ) => {
   const prompt = `
     Here is the data for analysis:
@@ -86,7 +62,11 @@ const executePrompt = async (
   `;
 
   let fullText = '';
-  const stream = session.promptStreaming(prompt);
+  const stream = session.promptStreaming(prompt, {
+    responseConstraint: {
+      schema,
+    },
+  });
   for await (const chunk of stream) {
     fullText += chunk;
     onChunk(chunk);
@@ -113,7 +93,7 @@ export const generateBudgetInsightsStream = async (
         description: e.description,
       })),
     };
-    await executePrompt(session, data, onChunk, onComplete);
+    await executePrompt(session, data, onChunk, onComplete, budgetSchema);
   } catch (error: any) {
     console.error('AI 예산 인사이트 스트리밍 중 오류 발생:', error);
     onError(new Error('AI로부터 예산 인사이트를 생성하는 데 실패했습니다.'));
@@ -136,7 +116,7 @@ export const generateExpenseInsightsStream = async (
         description: e.description,
       })),
     };
-    await executePrompt(session, data, onChunk, onComplete);
+    await executePrompt(session, data, onChunk, onComplete, {});
   } catch (error: any) {
     console.error('AI 소비 인사이트 스트리밍 중 오류 발생:', error);
     onError(new Error('AI로부터 소비 인사이트를 생성하는 데 실패했습니다.'));
