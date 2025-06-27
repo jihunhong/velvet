@@ -1,11 +1,8 @@
 import { format } from 'date-fns';
-import { budgets } from '../../tests/budgets';
 import AccountList from './AccountList';
-import { BudgetCardsList } from './BudgetCardsList';
 import BudgetsInsights from './BudgetsInsights';
 import ExpenseList from './ExpenseList';
 import HorizontalTimeline from './HorizontalTimeline';
-import Header from './Layout/Header';
 import Panel from './Layout/Panel';
 import Revenue from './Revenue';
 
@@ -91,22 +88,9 @@ export default function Dashboard({ timeframe, onTimeframeChange }: DashboardPro
       </div>
 
       <AccountList accounts={sampleAccounts} />
-      <div className="grid grid-rows-[546px_330px] grid-cols-4 gap-y-8 gap-4 w-full">
-        <Panel rowSpan={1} colSpan={2}>
-          <div className="flex flex-col gap-0.5">
-            <Header level={3} colorClass="bg-pink-500" textClass="text-black text-shadow tracking-tight">
-              예산 관리
-            </Header>
-            <p className="text-sm text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p>
-          </div>
-          <div className="flex flex-col gap-4 h-full">
-            <div className="flex flex-col gap-3 overflow-y-auto pr-2  custom-scrollbar">
-              <BudgetsInsights />
-            </div>
-            <div className="flex flex-col gap-8">
-              <BudgetCardsList budgets={budgets} />
-            </div>
-          </div>
+      <div className="grid grid-rows-[378px_360px] grid-cols-4 gap-y-8 gap-4 w-full">
+        <Panel rowSpan={1} colSpan={2} className="h-full  py-2">
+          <BudgetsInsights />
         </Panel>
 
         <Panel rowSpan={2} colSpan={2}>
