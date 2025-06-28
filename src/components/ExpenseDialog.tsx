@@ -1,3 +1,4 @@
+import { withTimestamps } from '@/common/utils/timestamp';
 import { Category } from '@/types/category';
 import { ExpenseFormData } from '@/types/expense';
 import { useQuery } from '@tanstack/react-query';
@@ -26,12 +27,12 @@ const ExpenseDialog = ({ isOpen, onClose, onSave }: ExpenseDialogProps) => {
       const formData = new FormData(e.target);
       const amountStr = String(formData.get('amount')).replace(/,/g, '');
       const selectedCategory = categoryMap?.[Number(formData.get('category'))];
-      const expense: ExpenseFormData = {
+      const expense: ExpenseFormData = withTimestamps({
         amount: Number(amountStr),
         category: selectedCategory as Category,
         description: String(formData.get('description')),
-        date: String(formData.get('date')),
-      };
+        isHidden: false,
+      });
 
       onSave(expense);
       e.target.reset();
