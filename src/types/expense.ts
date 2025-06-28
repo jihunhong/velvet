@@ -1,9 +1,13 @@
+import { Category } from './category';
+
 export interface Expense {
   id?: number;
   amount: number;
-  category: string;
+  category: Category;
   description: string;
-  date: string;
+  createdAt: string;
+  updatedAt: string;
+  isHidden: boolean;
 }
 
 export interface DailyExpenseSummary {
