@@ -85,7 +85,7 @@ export const generateBudgetInsightsStream = async (
   try {
     const session = await createStreamingSession(budgetSystemPrompt);
     const data = {
-      budgets: budgets.map((b) => ({ category: b.category, amount: b.budget })),
+      budgets: budgets.map((b) => ({ category: b.category, amount: b.goal })),
       expenses: expenses.map((e) => ({
         category: e.category,
         amount: e.amount,

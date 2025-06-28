@@ -5,7 +5,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis } from 'recharts';
 
 import { getCategoryColor } from '../common/constants/expenseCategory';
-import { getCurrentMonthExpenses, getRecentWeekAmounts } from '../db/expenseDB';
+import { getAllExpenses, getCurrentMonthExpenses } from '../db/expenseDB';
 import Calendar from './Calendar';
 import ExpenseInsight from './ExpenseInsight';
 
@@ -21,17 +21,17 @@ export default function ExpenseList() {
   });
 
   const {
-    data: weeklyExpenses,
-    isLoading: isWeeklyLoading,
-    isError: isWeeklyError,
+    data: allExpenses,
+    isLoading: isAllExpensesLoading,
+    isError: isAllExpensesError,
   } = useQuery({
-    queryKey: ['getRecentWeekAmounts'],
-    queryFn: getRecentWeekAmounts,
+    queryKey: ['getAllExpenses'],
+    queryFn: getAllExpenses,
     initialData: [],
   });
 
-  if (isLoading || isWeeklyLoading) return <div className="p-8 text-center text-gray-400">로딩 중...</div>;
-  if (isError || isWeeklyError) return <div className="p-8 text-center text-red-400">지출 내역을 불러오지 못했습니다.</div>;
+  if (isLoading || isAllExpensesLoading) return <div className="p-8 text-center text-gray-400">로딩 중...</div>;
+  if (isError || isAllExpensesError) return <div className="p-8 text-center text-red-400">지출 내역을 불러오지 못했습니다.</div>;
 
   const totalSpent = expenses.reduce((sum, expense) => sum + expense.amount, 0);
 
@@ -59,7 +59,7 @@ export default function ExpenseList() {
 
         <div className="col-span-3 h-32 w-full">
           <ResponsiveContainer width="100%" height="118%">
-            <AreaChart data={weeklyExpenses} margin={{ top: 10, right: 10, left: 0, bottom: 10 }}>
+            <AreaChart data={allExpenses} margin={{ top: 10, right: 10, left: 0, bottom: 10 }}>
               <defs>
                 <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="5%" stopColor="#60a5fa" stopOpacity={0.8} />
@@ -92,13 +92,13 @@ export default function ExpenseList() {
               <div
                 className="w-3 h-3 rounded-full"
                 style={{
-                  backgroundColor: getCategoryColor(expense.category),
+                  backgroundColor: getCategoryColor(expense.category.name),
                 }}
               />
               <div>
                 <p className="text-sm font-medium text-gray-900">{expense.description}</p>
                 <p className="text-xs text-gray-500">
-                  {expense.category} • {format(expense.date, 'MM월 dd일')}
+                  {expense.category.name} • {format(expense.updatedAt, 'MM월 dd일')}
                 </p>
               </div>
             </div>

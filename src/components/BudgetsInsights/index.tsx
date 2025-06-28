@@ -15,9 +15,11 @@ export default function BudgetsInsights() {
     error,
   } = useQuery<Insight[], Error>({
     queryKey: ['budgetInsights'],
-    queryFn: fetchBudgetInsights,
+    queryFn: () => fetchBudgetInsights([], []),
+    // TODO :: expense, budget 추가
     staleTime: 1000 * 60 * 60, // 1시간 동안 데이터를 fresh 상태로 유지
     refetchOnWindowFocus: false,
+    enabled: false,
   });
 
   const [currentIndex, setCurrentIndex] = useState(0);

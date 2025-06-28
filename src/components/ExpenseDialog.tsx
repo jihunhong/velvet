@@ -1,7 +1,9 @@
+import { Category } from '@/types/category';
 import { ExpenseFormData } from '@/types/expense';
+import { useQuery } from '@tanstack/react-query';
 import { ChevronDown, Maximize2, X } from 'lucide-react';
 import { useEffect, useRef } from 'react';
-import { categoryList } from '../common/constants/categoryName';
+import { getCategoryMap } from '../db/categoryDB';
 import CommonInput from './CommonInput';
 import Logo from './Logo';
 
@@ -12,6 +14,10 @@ interface ExpenseDialogProps {
 }
 
 const ExpenseDialog = ({ isOpen, onClose, onSave }: ExpenseDialogProps) => {
+  const { data: categoryMap } = useQuery<Record<number, Category>>({
+    queryKey: ['getCategoryMap'],
+    queryFn: getCategoryMap,
+  });
   const descriptionRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -19,9 +25,10 @@ const ExpenseDialog = ({ isOpen, onClose, onSave }: ExpenseDialogProps) => {
     if (e.target instanceof HTMLFormElement) {
       const formData = new FormData(e.target);
       const amountStr = String(formData.get('amount')).replace(/,/g, '');
+      const selectedCategory = categoryMap?.[Number(formData.get('category'))];
       const expense: ExpenseFormData = {
         amount: Number(amountStr),
-        category: String(formData.get('category')),
+        category: selectedCategory as Category,
         description: String(formData.get('description')),
         date: String(formData.get('date')),
       };
@@ -122,9 +129,9 @@ const ExpenseDialog = ({ isOpen, onClose, onSave }: ExpenseDialogProps) => {
                     className="block w-full rounded-md border border-gray-300 bg-white px-3 py-2 pr-10 text-sm text-gray-900"
                   >
                     <option value="">카테고리 선택</option>
-                    {categoryList.map((cat: { value: string; label: string }) => (
-                      <option key={cat.value} value={cat.value}>
-                        {cat.label}
+                    {Object.values(categoryMap ?? {}).map((cat) => (
+                      <option key={cat.id} value={cat.id}>
+                        {cat.name}
                       </option>
                     ))}
                   </select>
