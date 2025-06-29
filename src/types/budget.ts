@@ -2,8 +2,10 @@ import { Category } from './category';
 import { Expense } from './expense';
 
 export interface Budget {
+  id: number;
   title: string;
-  goal: number;
+  description?: string;
+  goal: number; // 목표 금액
   category: Category[];
   expenses: Expense[];
   createdAt: string;

@@ -1,8 +1,10 @@
 import { withTimestamps } from '@/common/utils/timestamp';
+import { getBudgetMap } from '@/db/budgetDB';
+import { Budget } from '@/types/budget';
 import { Category } from '@/types/category';
 import { ExpenseFormData } from '@/types/expense';
 import { useQuery } from '@tanstack/react-query';
-import { ChevronDown, Maximize2, X } from 'lucide-react';
+import { Maximize2, X } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import { getCategoryMap } from '../db/categoryDB';
 import CommonInput from './CommonInput';
@@ -19,6 +21,12 @@ const ExpenseDialog = ({ isOpen, onClose, onSave }: ExpenseDialogProps) => {
     queryKey: ['getCategoryMap'],
     queryFn: getCategoryMap,
   });
+
+  const { data: budgetMap } = useQuery<Record<number, Budget>>({
+    queryKey: ['getBudgetMap'],
+    queryFn: getBudgetMap,
+  });
+
   const descriptionRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -136,9 +144,27 @@ const ExpenseDialog = ({ isOpen, onClose, onSave }: ExpenseDialogProps) => {
                       </option>
                     ))}
                   </select>
-                  <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
-                    <ChevronDown className="w-4 h-4 text-gray-400" />
-                  </span>
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="category" className="block text-sm font-medium text-gray-700">
+                  예산
+                </label>
+                <div className="relative mt-1">
+                  <select
+                    name="budget"
+                    id="budget"
+                    required
+                    className="block w-full rounded-md border border-gray-300 bg-white px-3 py-2 pr-10 text-sm text-gray-900"
+                  >
+                    <option value="">예산 선택</option>
+                    {Object.values(budgetMap ?? {}).map((budget) => (
+                      <option key={budget.id} value={budget.id}>
+                        {budget.title}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               </div>
 

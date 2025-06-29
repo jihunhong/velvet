@@ -1,3 +1,4 @@
+import { Budget } from './budget';
 import { Category } from './category';
 
 export interface Expense {
@@ -8,6 +9,7 @@ export interface Expense {
   createdAt: string;
   updatedAt: string;
   isHidden: boolean;
+  budgets?: Budget[];
 }
 
 export interface DailyExpenseSummary {
