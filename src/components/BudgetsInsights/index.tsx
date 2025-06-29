@@ -1,3 +1,5 @@
+import { getAllBudgets } from '@/db/budgetDB';
+import { Budget } from '@/types/budget';
 import { useQuery } from '@tanstack/react-query';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronDown, ChevronUp } from 'lucide-react';
@@ -8,6 +10,11 @@ import fetchBudgetInsights from './fetchBudgetInsights';
 import InsightItem from './InsightItem';
 
 export default function BudgetsInsights() {
+  const { data: budgets } = useQuery<Budget[]>({
+    queryKey: ['getAllBudgets'],
+    queryFn: getAllBudgets,
+  });
+
   const {
     data: insights,
     isLoading,
@@ -15,11 +22,13 @@ export default function BudgetsInsights() {
     error,
   } = useQuery<Insight[], Error>({
     queryKey: ['budgetInsights'],
-    queryFn: () => fetchBudgetInsights([], []),
-    // TODO :: expense, budget 추가
+    queryFn: () => {
+      if (!budgets) throw new Error('Should not happen');
+      return fetchBudgetInsights(budgets);
+    },
     staleTime: 1000 * 60 * 60, // 1시간 동안 데이터를 fresh 상태로 유지
     refetchOnWindowFocus: false,
-    enabled: false,
+    enabled: !!budgets,
   });
 
   const [currentIndex, setCurrentIndex] = useState(0);
