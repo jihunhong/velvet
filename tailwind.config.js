@@ -6,6 +6,18 @@ export default {
       colors: {
         primary: '#E91E63',
         secondary: '#1E88E5',
+        accent: {
+          50: '#e3f0ff',
+          100: '#b3d4ff',
+          200: '#80b8ff',
+          300: '#4d9cff',
+          400: '#1a80ff',
+          500: '#007AFF', // default
+          600: '#0066d6',
+          700: '#0052ad',
+          800: '#003e85',
+          900: '#00295c',
+        },
       },
       fontFamily: {
         sans: ['Pretendard', 'system-ui', 'sans-serif'],

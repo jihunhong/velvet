@@ -26,14 +26,17 @@ export const addExpenseToBudget = async (expense: Expense, budgetId: number): Pr
   }
 };
 
-export const getBudgetMap = async (): Promise<Record<number, Budget>> => {
+export const getBudgetMapByCategory = async (): Promise<Map<number, Budget[]>> => {
   const db = await getDB();
   const budgets = await db.getAllFromIndex('budgets', 'by-id');
-  return budgets.reduce(
-    (acc, budget) => {
-      acc[budget.id] = budget;
-      return acc;
-    },
-    {} as Record<number, Budget>
-  );
+  return budgets.reduce((acc, budget) => {
+    budget.category.forEach((category) => {
+      if (acc.has(category.id)) {
+        acc.set(category.id, [...acc.get(category.id)!, budget]);
+      } else {
+        acc.set(category.id, [budget]);
+      }
+    });
+    return acc;
+  }, new Map<number, Budget[]>());
 };
