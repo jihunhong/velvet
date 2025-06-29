@@ -16,10 +16,12 @@ export async function initDb() {
       categories = await getAllCategories();
     }
 
+    let initAddedBudgets = false;
     // 2. 예산
     const budgets = await getAllBudgets();
     if (!budgets || budgets.length === 0) {
       await addBudgets(defaultBudgets as Budget[]);
+      initAddedBudgets = true;
     }
 
     // 3. 지출
@@ -29,9 +31,11 @@ export async function initDb() {
       expenses = await getAllExpenses();
     }
 
-    for (const expense of expenses) {
-      for (const budget of expense.budgets) {
-        await addExpenseToBudget(expense, budget.id);
+    if (initAddedBudgets) {
+      for (const expense of expenses) {
+        for (const budget of expense.budgets) {
+          await addExpenseToBudget(expense, budget.id);
+        }
       }
     }
 
