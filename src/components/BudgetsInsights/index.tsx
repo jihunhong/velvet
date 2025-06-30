@@ -2,7 +2,6 @@ import { getAllBudgets } from '@/db/budgetDB';
 import { Budget } from '@/types/budget';
 import { useQuery } from '@tanstack/react-query';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
 import BudgetItem from './BudgetItem';
 import BudgetLoading from './BudgetLoading';
@@ -56,39 +55,47 @@ export default function BudgetsInsights() {
   if (!budgets || budgets.length === 0) return null;
 
   return (
-    <div className="relative h-full overflow-hidden py-2 px-4 w-full items-center flex flex-col gap-4" onWheel={handleWheel} tabIndex={0}>
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.div
-          key={currentIndex}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          transition={{ duration: 0.25, ease: 'easeInOut' }}
-          className="w-full  min-h-[289px]"
-        >
-          <BudgetItem budget={budgets[currentIndex]} />
-        </motion.div>
-      </AnimatePresence>
-      <div className="footer w-full">
-        <section className="flex items-center justify-end">
+    <>
+      <div
+        className="relative h-full py-2 px-4 w-90 items-center flex flex-col gap-4 border border-gray-200 rounded-md bg-white z-[1]"
+        onWheel={handleWheel}
+        tabIndex={0}
+      >
+        {/* TODO :: prev, next 버튼 없앨까? */}
+        {/* <div className="header w-full absolute top-0 right-0">
+        <section className="flex items-start justify-end">
           <div className="flex items-center gap-2">
             <button
-              className="p-1 rounded-full border border-gray-700 bg-white hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="p-2 rounded-lg bg-gray-50 hover:bg-gray-100 border border-gray-200 hover:border-gray-300 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed shadow-sm hover:shadow-md"
               disabled={currentIndex === 0}
               onClick={goPrev}
             >
-              <ChevronUp className="w-4 h-4 text-gray-600" />
+              <ChevronUp className="w-5 h-5 text-gray-700" />
             </button>
             <button
-              className="p-1 rounded-full border border-gray-700 bg-white hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="p-2 rounded-lg bg-gray-50 hover:bg-gray-100 border border-gray-200 hover:border-gray-300 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed shadow-sm hover:shadow-md"
               disabled={currentIndex === total - 1}
               onClick={goNext}
             >
-              <ChevronDown className="w-4 h-4 text-gray-600" />
+              <ChevronDown className="w-5 h-5 text-gray-700" />
             </button>
           </div>
         </section>
+      </div> */}
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={currentIndex}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.25, ease: 'easeInOut' }}
+            className="w-full  min-h-[289px]  p-4"
+          >
+            <BudgetItem budget={budgets[currentIndex]} />
+          </motion.div>
+        </AnimatePresence>
       </div>
-    </div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[99%] h-[97.5%] bg-gray-100 rounded-lg z-[0]"></div>
+    </>
   );
 }

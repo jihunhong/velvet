@@ -48,8 +48,8 @@ const BudgetItem = ({ budget }: { budget: Budget }) => {
             {percent}%
           </span>
         </div>
-        <div className="font-bold text-sm text-gray-500 flex items-center gap-2 cursor-pointer">
-          <span>planned. ₩{budget.goal.toLocaleString()}</span>
+        <div className="font-bold text-sm text-gray-500 flex items-center gap-2 cursor-pointer hover:underline">
+          <span>planned · ₩{budget.goal.toLocaleString()}</span>
           <span className="text-gray-400">
             {getDayForEng(budget.startAt)} - {getDayForEng(budget.endAt)}
           </span>
