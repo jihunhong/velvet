@@ -10,7 +10,7 @@ export const setExpense = async (expenses: Expense[]) => {
   const tx = db.transaction('expenses', 'readwrite');
   const store = tx.objectStore('expenses');
   expenses.forEach((expense) => {
-    store.put(withTimestamps(expense));
+    store.put(expense);
   });
   await tx.done;
 };

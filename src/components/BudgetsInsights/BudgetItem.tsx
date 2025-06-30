@@ -1,24 +1,33 @@
+import { generateSubTitle, getStatusStyles } from '@/common/utils/percent';
+import { useBudgetInsightStream } from '@/hooks/useBudgetInsightStream';
 import { Ellipsis, TrendingUp } from 'lucide-react';
+import { useEffect } from 'react';
 import { getCategoryColor, housing } from '../../common/constants/expenseCategory';
-import type { Insight } from '../../types/insight';
+import type { Budget } from '../../types/budget';
 import WeeklyDotChart from '../WeeklyDotChart';
 
-const InsightItem = ({ insight }: { insight: Insight }) => {
-  const { title, subTitle, description, category } = insight;
-  const percent = 83;
-  const getStatusStyles = (percent: number) => {
-    if (percent >= 100) return { status: 'Over', txt: 'text-red-400', bg: 'bg-red-400' };
-    if (percent > 90) return { status: 'High', txt: 'text-orange-400', bg: 'bg-orange-400' };
-    if (percent > 80) return { status: 'Medium', txt: 'text-amber-400', bg: 'bg-amber-400' };
-    return { status: 'Low', txt: 'text-emerald-400', bg: 'bg-emerald-400' };
-  };
+const BudgetItem = ({ budget }: { budget: Budget }) => {
+  const { title, category } = budget;
+
+  const { insight, start } = useBudgetInsightStream();
+
+  useEffect(() => {
+    if (budget) {
+      start(budget);
+    }
+  }, [budget, start]);
+
+  const totalExpense = budget.expenses.filter((e) => !e.isHidden).reduce((acc, e) => acc + e.amount, 0);
+  const percent = Number(Math.round((totalExpense / budget.goal) * 100).toFixed(0));
+  const subTitle = generateSubTitle(percent);
+
   const { status, txt, bg } = getStatusStyles(percent);
 
   return (
     <div className="rounded-lg grid grid-rows-[30px_70px_1fr] gap-6 h-full">
       <div className="flex items-center justify-between gap-2 header">
         <div className="flex items-center gap-2">
-          <div className={`h-4 w-4 rounded-sm`} aria-hidden="true" style={{ backgroundColor: getCategoryColor(category) }} />
+          <div className={`h-4 w-4 rounded-sm`} aria-hidden="true" style={{ backgroundColor: getCategoryColor(category?.[0]?.name) }} />
           <h3 className="font-semibold text-gray-800 text-xl text-shadow tracking-tight">{title}</h3>
         </div>
         <div>
@@ -54,13 +63,15 @@ const InsightItem = ({ insight }: { insight: Insight }) => {
           </div>
         </div>
         <div className="flex items-center justify-between gap-1 w-full">
-          <ul className="flex flex-col gap-1 list-disc pl-4">
-            {description.map((d) => (
-              <li key={d}>
-                <p className="text-sm text-gray-600 text-shadow">{d}</p>
-              </li>
-            ))}
-          </ul>
+          {insight.length > 0 ? (
+            <p className="text-sm text-gray-600 text-shadow whitespace-pre-line">{insight}</p>
+          ) : (
+            // 스켈레톤 ui
+            <div className="flex flex-col gap-1 w-full">
+              <div className="w-[40%] h-4 bg-gray-200 rounded-md animate-pulse" />
+              <div className="w-[60%] h-4 bg-gray-200 rounded-md animate-pulse" />
+            </div>
+          )}
           <WeeklyDotChart weeks={[2, 14, 0, 0, 24]} dotColor={housing} maxHeight="unset" />
         </div>
       </div>
@@ -68,4 +79,4 @@ const InsightItem = ({ insight }: { insight: Insight }) => {
   );
 };
 
-export default InsightItem;
+export default BudgetItem;

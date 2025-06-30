@@ -4,35 +4,22 @@ import { useQuery } from '@tanstack/react-query';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
-import type { Insight } from '../../types/insight';
+import BudgetItem from './BudgetItem';
 import BudgetLoading from './BudgetLoading';
-import fetchBudgetInsights from './fetchBudgetInsights';
-import InsightItem from './InsightItem';
 
 export default function BudgetsInsights() {
-  const { data: budgets } = useQuery<Budget[]>({
+  const {
+    isLoading,
+    isError,
+    error,
+    data: budgets,
+  } = useQuery<Budget[]>({
     queryKey: ['getAllBudgets'],
     queryFn: getAllBudgets,
   });
 
-  const {
-    data: insights,
-    isLoading,
-    isError,
-    error,
-  } = useQuery<Insight[], Error>({
-    queryKey: ['budgetInsights'],
-    queryFn: () => {
-      if (!budgets) throw new Error('Should not happen');
-      return fetchBudgetInsights(budgets);
-    },
-    staleTime: 1000 * 60 * 60, // 1시간 동안 데이터를 fresh 상태로 유지
-    refetchOnWindowFocus: false,
-    enabled: !!budgets,
-  });
-
   const [currentIndex, setCurrentIndex] = useState(0);
-  const total = insights?.length ?? 0;
+  const total = budgets?.length ?? 0;
 
   const goPrev = useCallback(() => {
     setCurrentIndex((prev) => (prev > 0 ? prev - 1 : prev));
@@ -51,7 +38,7 @@ export default function BudgetsInsights() {
 
   useEffect(() => {
     setCurrentIndex(0);
-  }, [insights]);
+  }, [budgets]);
 
   if (isLoading) {
     return <BudgetLoading />;
@@ -66,7 +53,7 @@ export default function BudgetsInsights() {
     );
   }
 
-  if (!insights || insights.length === 0) return null;
+  if (!budgets || budgets.length === 0) return null;
 
   return (
     <div className="relative h-full overflow-hidden py-2 px-4 w-full items-center flex flex-col gap-4" onWheel={handleWheel} tabIndex={0}>
@@ -79,7 +66,7 @@ export default function BudgetsInsights() {
           transition={{ duration: 0.25, ease: 'easeInOut' }}
           className="w-full"
         >
-          <InsightItem insight={insights[currentIndex]} />
+          <BudgetItem budget={budgets[currentIndex]} />
         </motion.div>
       </AnimatePresence>
       <div className="footer w-full">
