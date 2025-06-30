@@ -98,35 +98,7 @@ export default function Dashboard({ timeframe, onTimeframeChange }: DashboardPro
         </Panel>
         <Panel rowSpan={1} colSpan={2}>
           <div className="grid grid-cols-7 gap-2">
-            <HorizontalTimeline
-              containerClassName="col-span-7 row-span-1"
-              sections={[
-                {
-                  label: '2025-06-11',
-                  value: 31,
-                },
-                {
-                  label: '2025-06-12',
-                  value: 24,
-                },
-                {
-                  label: '2025-06-13',
-                  value: 7,
-                },
-                {
-                  label: '2025-06-14',
-                  value: 6,
-                },
-                {
-                  label: '2025-06-15',
-                  value: 2,
-                },
-                {
-                  label: '2025-06-16',
-                  value: 12,
-                },
-              ]}
-            />
+            <HorizontalTimeline containerClassName="col-span-7 row-span-1" />
           </div>
           <div className="flex flex-col justify-start mt-4   w-full h-full">
             <p className="w-full text-sm text-gray-500">Eius magni vitae reprehenderit rem eum alias libero atque</p>

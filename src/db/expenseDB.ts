@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { WITH_TIME_ZONE } from '../common/constants/dateFormat';
+import { END_TIME_ZONE, START_TIME_ZONE, WITH_TIME_ZONE } from '../common/constants/dateFormat';
 import { withTimestamps } from '../common/utils/timestamp';
 
 import { Expense, ExpenseFormData, ExpenseRecord } from '../types/expense';
@@ -33,7 +33,9 @@ export const getExpensesByDate = async (date: string) => {
 
 export const getExpensesByDateRange = async ({ startDate, endDate }: Record<'startDate' | 'endDate', string>) => {
   const db = await getDB();
-  const range = IDBKeyRange.bound(startDate, endDate);
+  const start = dayjs(startDate).format(START_TIME_ZONE);
+  const end = dayjs(endDate).format(END_TIME_ZONE);
+  const range = IDBKeyRange.bound(start, end);
   return db.getAllFromIndex('expenses', 'by-updatedAt', range) as Promise<ExpenseRecord[]>;
 };
 
