@@ -1,8 +1,6 @@
 import { DailyCategoryData } from '../DailyDotChart';
 
-export const calculateDots = (amount: number, division: number = 5): number => {
-  if (amount === 0) return 1;
-
+export const calculateDots = (amount: number, division: number = 1): number => {
   const ratio = amount / division;
   const dots = Math.ceil(ratio);
   return dots;

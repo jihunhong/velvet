@@ -64,7 +64,7 @@ export default function BudgetsInsights() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.25, ease: 'easeInOut' }}
-          className="w-full"
+          className="w-full  min-h-[289px]"
         >
           <BudgetItem budget={budgets[currentIndex]} />
         </motion.div>

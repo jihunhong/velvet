@@ -20,6 +20,7 @@ const WeeklyDotChart: React.FC<WeeklyDotChartProps> = ({ weeks: data, containerC
       dots: calculateDots(amount),
     }));
   }, [data]);
+  console.log('weeklyData', weeklyData);
 
   return (
     <div className={`${containerClassName}`}>
@@ -27,9 +28,11 @@ const WeeklyDotChart: React.FC<WeeklyDotChartProps> = ({ weeks: data, containerC
         {weeklyData.map((week, index) => (
           <div key={week.week} className="flex flex-col items-center group relative">
             <div className="flex flex-col-reverse gap-1 mb-3">
-              {Array.from({ length: week.dots }).map((_, dotIndex) => (
-                <Dot key={dotIndex} dotColor={dotColor} dotClassName={dotClassName} />
-              ))}
+              {week.dots === 0 ? (
+                <Dot dotColor="#dadada" dotClassName={dotClassName} />
+              ) : (
+                Array.from({ length: week.dots }).map((_, dotIndex) => <Dot key={dotIndex} dotColor={dotColor} dotClassName={dotClassName} />)
+              )}
             </div>
 
             <div className="absolute bottom-full mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none  z-10">

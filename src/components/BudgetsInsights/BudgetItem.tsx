@@ -1,10 +1,14 @@
-import { generateSubTitle, getStatusStyles } from '@/common/utils/percent';
+import { getDayForEng } from '@/common/utils/day';
+import { getStatusStyles } from '@/common/utils/percent';
 import { useBudgetInsightStream } from '@/hooks/useBudgetInsightStream';
-import { Ellipsis, TrendingUp } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Ellipsis, Settings2, TrendingUp } from 'lucide-react';
 import { useEffect } from 'react';
-import { getCategoryColor, housing } from '../../common/constants/expenseCategory';
+import { getCategoryColor } from '../../common/constants/expenseCategory';
 import type { Budget } from '../../types/budget';
 import WeeklyDotChart from '../WeeklyDotChart';
+import BudgetLoading from './BudgetLoading';
+import { getWeeklyExpenseCounts } from './getWeekExpenses';
 
 const BudgetItem = ({ budget }: { budget: Budget }) => {
   const { title, category } = budget;
@@ -18,13 +22,12 @@ const BudgetItem = ({ budget }: { budget: Budget }) => {
   }, [budget, start]);
 
   const totalExpense = budget.expenses.filter((e) => !e.isHidden).reduce((acc, e) => acc + e.amount, 0);
-  const percent = Number(Math.round((totalExpense / budget.goal) * 100).toFixed(0));
-  const subTitle = generateSubTitle(percent);
-
+  const percent = Number(Math.round((totalExpense / budget.goal) * 100).toFixed(1));
   const { status, txt, bg } = getStatusStyles(percent);
+  const weeks = getWeeklyExpenseCounts(budget.expenses);
 
   return (
-    <div className="rounded-lg grid grid-rows-[30px_70px_1fr] gap-6 h-full">
+    <div className="rounded-lg grid grid-rows-[30px_70px_1fr] gap-4 h-full">
       <div className="flex items-center justify-between gap-2 header">
         <div className="flex items-center gap-2">
           <div className={`h-4 w-4 rounded-sm`} aria-hidden="true" style={{ backgroundColor: getCategoryColor(category?.[0]?.name) }} />
@@ -36,15 +39,22 @@ const BudgetItem = ({ budget }: { budget: Budget }) => {
       </div>
       <div className="flex flex-col gap-1 subtitle">
         <div className="flex items-center gap-2">
-          <p className="text-3xl font-bold text-black">
-            ₩102,240<span className="text-gray-400 text-2xl">.82</span>
+          <p className="text-3xl font-bold text-gray-900 tracking-tight">
+            ₩ {totalExpense.toLocaleString()}
+            <span className="text-gray-400 text-2xl ml-[4px]">원</span>
           </p>
-          <span className="px-2 py-1 text-xs font-small bg-rose-600 text-white rounded-full flex items-center gap-1">
+          <span className="px-2 py-1 text-xs font-small bg-pink-600 text-white rounded-full flex items-center gap-1">
             <TrendingUp className="w-3 h-3" />
-            5.2%
+            {percent}%
           </span>
         </div>
-        <p className="text-sm text-gray-600 line-clamp-1 opacity-80 text-shadow">{subTitle}</p>
+        <div className="font-bold text-sm text-gray-500 flex items-center gap-2 cursor-pointer">
+          <span>planned. ₩{budget.goal.toLocaleString()}</span>
+          <span className="text-gray-400">
+            {getDayForEng(budget.startAt)} - {getDayForEng(budget.endAt)}
+          </span>
+          <Settings2 className="w-4 h-4 text-gray-400" />
+        </div>
       </div>
       <div className="flex flex-col items-center justify-start gap-6 body">
         <div className="w-full">
@@ -62,18 +72,31 @@ const BudgetItem = ({ budget }: { budget: Budget }) => {
             </div>
           </div>
         </div>
-        <div className="flex items-center justify-between gap-1 w-full">
+        <AnimatePresence mode="wait">
           {insight.length > 0 ? (
-            <p className="text-sm text-gray-600 text-shadow whitespace-pre-line">{insight}</p>
+            <motion.div
+              key="content"
+              initial={{ opacity: 0.1 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.2, ease: 'easeOut' }}
+              className="flex items-center justify-between gap-1 w-full"
+            >
+              <motion.p
+                initial={{ opacity: 0.1 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.2 }}
+                className="text-sm text-gray-600 whitespace-pre-line"
+              >
+                {insight}
+              </motion.p>
+              <WeeklyDotChart weeks={weeks} dotColor={budget.category?.[0].color} maxHeight="unset" />
+            </motion.div>
           ) : (
-            // 스켈레톤 ui
-            <div className="flex flex-col gap-1 w-full">
-              <div className="w-[40%] h-4 bg-gray-200 rounded-md animate-pulse" />
-              <div className="w-[60%] h-4 bg-gray-200 rounded-md animate-pulse" />
-            </div>
+            <motion.div key="loading" initial={{ opacity: 0.1 }} animate={{ opacity: 1 }} exit={{ opacity: 0, y: 10 }}>
+              <BudgetLoading />
+            </motion.div>
           )}
-          <WeeklyDotChart weeks={[2, 14, 0, 0, 24]} dotColor={housing} maxHeight="unset" />
-        </div>
+        </AnimatePresence>
       </div>
     </div>
   );
