@@ -57,7 +57,7 @@ export default function BudgetsInsights() {
   return (
     <>
       <div
-        className="relative h-full py-2 px-4 w-90 items-center flex flex-col gap-4 border border-gray-200 rounded-md bg-white z-[1]"
+        className="relative h-full w-90 items-center flex flex-col gap-4 rounded-xl border border-gray-200 bg-white z-[1]"
         onWheel={handleWheel}
         tabIndex={0}
       >
@@ -89,13 +89,13 @@ export default function BudgetsInsights() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.25, ease: 'easeInOut' }}
-            className="w-full  min-h-[289px]  p-4"
+            className="w-full min-h-[289px] p-6"
           >
             <BudgetItem budget={budgets[currentIndex]} />
           </motion.div>
         </AnimatePresence>
       </div>
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[99%] h-[97.5%] bg-gray-100 rounded-lg z-[0]"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[99%] h-[97.5%] bg-gray-100 rounded-xl z-[0]"></div>
     </>
   );
 }
