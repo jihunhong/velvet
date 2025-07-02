@@ -37,8 +37,8 @@ export default function ExpenseList() {
       </div>
       <div className="overflow-x-auto flex-1  custom-scrollbar">
         <table className="min-w-full text-left text-sm">
-          <thead>
-            <tr className="text-gray-500 border-b sticky top-0 bg-white z-10">
+          <thead className="sticky top-0 bg-white z-10 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-gray-200">
+            <tr className="text-gray-500 ">
               <th className="py-2 px-2">카테고리</th>
               <th className="py-2 px-2">설명</th>
               <th className="py-2 px-2 text-right">금액</th>
