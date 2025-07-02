@@ -6,7 +6,6 @@ import { isSaturday, isSunday } from '../../common/utils/day';
 import DailyDotChart from '../DailyDotChart';
 import { getValidDailyData } from '../WeeklyDotChart/utils';
 import { getDailyCategoryData, getExpenseTimeLine, getTimelineRange } from './calc';
-import Ticks from './Ticks';
 
 export interface TimelineSection {
   label: string;
@@ -53,38 +52,48 @@ const HorizontalTimeline: React.FC<HorizontalTimelineProps> = ({ spacing = 12, c
     };
   }, []);
 
-  const gridClass = ['flex justify-start w-full h-full', containerClassName].filter(Boolean).join(' ');
+  const gridClass = ['flex justify-start w-full h-full gap-3', containerClassName].filter(Boolean).join(' ');
 
   // 각 섹션이 컨테이너 전체 너비를 채우도록 계산
   const sectionWidth = containerWidth > 0 ? containerWidth / timeLine.length : 200;
+  console.log('sectionWidth', sectionWidth);
 
   return (
     <div ref={containerRef} className={gridClass}>
       {timeLine.map((t, index) => {
         const validData = getValidDailyData(getDailyCategoryData(expenses, t.label), 10);
         const labelColor = isSaturday(t.label) ? 'text-blue-700' : isSunday(t.label) ? 'text-red-500' : 'text-gray-700';
+        const isSat = isSaturday(t.label);
+        const isSun = isSunday(t.label);
+
+        const bgColor = isSat
+          ? 'bg-[#e0edff]' // 연한 파랑
+          : isSun
+            ? 'bg-[#ffe0e0]' // 연한 빨강
+            : 'bg-[#fff]'; // 연한 회색
+
+        const shadowColor = isSat
+          ? 'shadow-[0_4px_16px_0_rgba(59,130,246,0.15)]' // 파랑 그림자
+          : isSun
+            ? 'shadow-[0_4px_16px_0_rgba(239,68,68,0.15)]' // 빨강 그림자
+            : ''; // 회색 그림자
+
         return (
           <div
             key={`${t.label}-${index}`}
             className="relative cursor-pointer group text-gray-400 transition-colors transform-gpu hover:text-gray-700 duration-500 ease-in-out"
-            style={{ width: sectionWidth, height: sectionWidth * 0.9 }}
+            style={{ width: sectionWidth, height: sectionWidth * 1.5 }}
           >
-            <div className="relative w-full h-full flex flex-col">
-              {
-                <div className="flex-1 flex flex-col items-start justify-start w-full px-4 gap-3 relative">
-                  <div className={`opacity-50 ${labelColor} text-sm font-semibold group-hover:opacity-100 transition-opacity duration-500`}>
-                    {dayjs(t.label).format('MMM, DD')}
-                  </div>
-                  <div className="opacity-50 text-gray-800 text-lg font-bold  group-hover:opacity-100 transition-opacity duration-500">{t.value}</div>
-                  <div className="p-2 absolute bottom-0 right-0 w-1/2 h-full overflow-hidden">
-                    <DailyDotChart data={validData} dotClassName="group-hover:opacity-100 opacity-10 transition-opacity duration-500" />
-                  </div>
-                </div>
-              }
-
-              <div className="h-2/5 flex items-end justify-center pb-2" />
-
-              <Ticks spacing={spacing} sectionWidth={sectionWidth} isFirst={index === 0} />
+            <div className={`flex flex-col items-start justify-start w-full h-full relative py-3 px-2 gap-2 rounded-md ${bgColor} ${shadowColor}`}>
+              <div className={`${labelColor} w-full text-center text-md font-semibold text-shadow`}>
+                <span className="text-center">{dayjs(t.label).format('MMM, DD')}</span>
+              </div>
+              <div className={`${labelColor} text-lg text-center font-semibold w-full text-shadow`}>
+                <span className="text-center">{t.value}</span>
+              </div>
+              <div className="p-2 absolute bottom-0 right-0 w-full h-full overflow-hidden">
+                <DailyDotChart data={validData} dotClassName="" containerClassName="justify-center" />
+              </div>
             </div>
           </div>
         );
