@@ -1,13 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
-import dayjs from 'dayjs';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { Area, AreaChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis } from 'recharts';
 
 import { getCategoryColor } from '../common/constants/expenseCategory';
 import { getAllExpenses, getCurrentMonthExpenses } from '../db/expenseDB';
-import Calendar from './Calendar';
-import ExpenseInsight from './ExpenseInsight';
 
 export default function ExpenseList() {
   const {
@@ -37,74 +32,36 @@ export default function ExpenseList() {
 
   return (
     <div className="bg-white rounded-[20px] px-6 py-1 h-full flex flex-col">
-      <div className="grid grid-cols-7 gap-6 mb-6">
-        <div className="col-span-4 flex justify-between items-center w-full">
-          <div className="flex flex-col items-start w-full h-full gap-3">
-            <div className="flex items-center gap-[1.4rem]">
-              <ChevronLeft className="w-4 h-4 text-gray-600 dropshadow" />
-              <span className="font-semibold text-lg text-gray-950 text-shadow underline underline-offset-4">{dayjs().get('month') + 1}월</span>
-              <ChevronRight className="w-4 h-4 text-gray-600 dropshadow" />
-            </div>
-            <div className="flex items-center">
-              <p className="text-gray-900 text-3xl font-bold tracking-tight">
-                ₩{totalSpent.toLocaleString()}
-                <span className="text-gray-400 text-2xl">.32</span>
-              </p>
-            </div>
-
-            <ExpenseInsight expenses={expenses} />
-            <Calendar />
-          </div>
-        </div>
-
-        <div className="col-span-3 h-32 w-full">
-          <ResponsiveContainer width="100%" height="118%">
-            <AreaChart data={allExpenses} margin={{ top: 10, right: 10, left: 0, bottom: 10 }}>
-              <defs>
-                <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#60a5fa" stopOpacity={0.8} />
-                  <stop offset="95%" stopColor="#60a5fa" stopOpacity={0.1} />
-                </linearGradient>
-              </defs>
-              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0f0f0" />
-              <XAxis dataKey="date" axisLine={false} tickLine={false} tick={false} />
-              <YAxis dataKey="amount" axisLine={false} tickLine={false} tick={false} width={40} />
-              <Area
-                type="linear"
-                dataKey="amount"
-                stroke="#60a5fa"
-                strokeWidth={3}
-                fill="url(#colorValue)"
-                dot={{ r: 4, stroke: '#60a5fa', strokeWidth: 2, fill: '#ffffff', fillOpacity: 1 }}
-                activeDot={{ r: 6, stroke: '#60a5fa', strokeWidth: 2, fill: '#ffffff', fillOpacity: 1 }}
-              />
-            </AreaChart>
-          </ResponsiveContainer>
-        </div>
+      <div className="mb-4">
+        <h2 className="text-lg font-bold text-gray-900">Expense</h2>
       </div>
-      <div className="space-y-4 overflow-y-auto flex-1 pr-2 custom-scrollbar">
-        {expenses.map((expense, idx) => (
-          <div
-            key={expense.id ?? idx}
-            className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-all duration-200 ease-in-out cursor-pointer"
-          >
-            <div className="flex items-center gap-3">
-              <div
-                className="w-3 h-3 rounded-full"
-                style={{
-                  backgroundColor: getCategoryColor(expense.category.name),
-                }}
-              />
-              <div>
-                <p className="text-sm font-medium text-gray-900">{expense.description}</p>
-                <p className="text-xs text-gray-500">
-                  {expense.category.name} • {format(expense.updatedAt, 'MM월 dd일')}
-                </p>
-              </div>
-            </div>
-            <span className="text-sm font-semibold text-red-500 tracking-tight">-{expense.amount.toLocaleString()}원</span>
-          </div>
-        ))}
+      <div className="overflow-x-auto flex-1  custom-scrollbar">
+        <table className="min-w-full text-left text-sm">
+          <thead>
+            <tr className="text-gray-500 border-b sticky top-0 bg-white z-10">
+              <th className="py-2 px-2">카테고리</th>
+              <th className="py-2 px-2">설명</th>
+              <th className="py-2 px-2 text-right">금액</th>
+              <th className="py-2 px-2">날짜</th>
+            </tr>
+          </thead>
+          <tbody>
+            {expenses.map((expense, idx) => (
+              <tr key={expense.id ?? idx} className="hover:bg-gray-50 transition-all duration-200 cursor-pointer">
+                <td className="py-2 px-2">
+                  <span
+                    className="inline-block w-3 h-3 rounded-full mr-2 align-middle"
+                    style={{ backgroundColor: getCategoryColor(expense.category.name) }}
+                  />
+                  {expense.category.name}
+                </td>
+                <td className="py-2 px-2">{expense.description}</td>
+                <td className="py-2 px-2 text-right text-red-500 font-semibold">-{expense.amount.toLocaleString()}원</td>
+                <td className="py-2 px-2">{format(expense.updatedAt, 'MM월 dd일')}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
