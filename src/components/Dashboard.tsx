@@ -1,10 +1,9 @@
-import { format } from 'date-fns';
 import AccountList from './AccountList';
 import BudgetsInsights from './BudgetsInsights';
 import ExpenseList from './ExpenseList';
-import HorizontalTimeline from './HorizontalTimeline';
 import Panel from './Layout/Panel';
 import Revenue from './Revenue';
+import Totally from './Totally';
 
 interface DashboardProps {
   timeframe: {
@@ -56,30 +55,10 @@ const sampleAccounts = [
 
 export default function Dashboard({ timeframe, onTimeframeChange }: DashboardProps) {
   return (
-    <div className="bg-white rounded-[20px] p-6 space-y-6 w-full">
+    <div className="bg-white rounded-[20px] p-9 space-y-6 w-full">
       <div className="flex items-center justify-between w-full">
         <div className="flex items-center gap-2">
-          <h1 className="text-2xl font-semibold text-gray-400 opacity-70">New report</h1>
-        </div>
-        <div className="flex items-center gap-4">
-          <div className="relative">
-            <select
-              className="appearance-none px-4 pr-10 py-2 bg-white border border-gray-200 rounded-lg text-sm cursor-pointer"
-              value={`${format(timeframe.start, 'MMM d')} - ${format(timeframe.end, 'MMM d, yyyy')}`}
-              onChange={() => {
-                onTimeframeChange(timeframe);
-              }}
-            >
-              <option>
-                {format(timeframe.start, 'MMM d')} - {format(timeframe.end, 'MMM d, yyyy')}
-              </option>
-            </select>
-            <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
-              <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
-            </div>
-          </div>
+          <h1 className="text-2xl font-semibold text-gray-400 opacity-70">New Report</h1>
         </div>
       </div>
 
@@ -88,22 +67,24 @@ export default function Dashboard({ timeframe, onTimeframeChange }: DashboardPro
       </div>
 
       <AccountList accounts={sampleAccounts} />
-      <div className="grid grid-rows-[378px_360px] grid-cols-4 gap-y-8 gap-4 w-full">
-        <Panel rowSpan={1} colSpan={2} className="h-full py-2 relative">
+      <div className="grid grid-cols-6 grid-rows-4 gap-4 h-screen max-h-[900px]">
+        <Panel rowSpan={2} colSpan={2} className="h-full py-2 relative">
           <BudgetsInsights />
         </Panel>
 
-        <Panel rowSpan={2} colSpan={2}>
-          <ExpenseList />
+        <Panel rowSpan={2} colSpan={2} className="py-2">
+          <section className="grid grid-rows-2 grid-cols-2 gap-3 h-full">
+            <Totally />
+          </section>
         </Panel>
-        <Panel rowSpan={1} colSpan={2}>
-          <div className="grid grid-cols-7 gap-2">
-            <HorizontalTimeline containerClassName="col-span-7 row-span-1" />
-          </div>
-          <div className="flex flex-col justify-start mt-4   w-full h-full">
-            <p className="w-full text-sm text-gray-500">Eius magni vitae reprehenderit rem eum alias libero atque</p>
-            <p className="w-full text-md font-medium text-gray-800">excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.</p>
-          </div>
+        <Panel rowSpan={2} colSpan={2} className="py-2">
+          차트
+        </Panel>
+        <Panel rowSpan={2} colSpan={2}>
+          스펜트, 카드
+        </Panel>
+        <Panel rowSpan={2} colSpan={4}>
+          <ExpenseList />
         </Panel>
       </div>
     </div>
