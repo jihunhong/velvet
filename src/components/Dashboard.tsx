@@ -3,6 +3,7 @@ import AccountList from './AccountList';
 import BudgetsInsights from './BudgetsInsights';
 import ExpenseList from './ExpenseList';
 import Panel from './Layout/Panel';
+import ProfitLossChart from './ProfitLossChart';
 import RegularPayment from './RegularPayment';
 import Revenue from './Revenue';
 import SpentLimit from './SpentLimit';
@@ -81,7 +82,7 @@ export default function Dashboard({ timeframe, onTimeframeChange }: DashboardPro
           </section>
         </Panel>
         <Panel rowSpan={2} colSpan={2}>
-          차트
+          <ProfitLossChart />
         </Panel>
         <Panel rowSpan={2} colSpan={2}>
           <div className="flex flex-col gap-4 h-full">
