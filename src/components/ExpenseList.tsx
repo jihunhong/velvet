@@ -21,7 +21,7 @@ export default function ExpenseList() {
   return (
     <div className="bg-white w-full h-full flex flex-col">
       <div className="mb-4">
-        <h2 className="text-lg font-semibold text-gray-700">Transactions</h2>
+        <h2 className="text-lg font-semibold text-gray-700 text-shadow">Transactions</h2>
       </div>
       <div className="rounded-md border border-gray-200 overflow-hidden flex-1">
         <div className="bg-gray-50 border-b border-gray-200">

@@ -1,8 +1,11 @@
+import { paymentData } from '../../tests/regularPayments';
 import AccountList from './AccountList';
 import BudgetsInsights from './BudgetsInsights';
 import ExpenseList from './ExpenseList';
 import Panel from './Layout/Panel';
+import RegularPayment from './RegularPayment';
 import Revenue from './Revenue';
+import SpentLimit from './SpentLimit';
 import Totally from './Totally';
 
 interface DashboardProps {
@@ -67,7 +70,7 @@ export default function Dashboard({ timeframe, onTimeframeChange }: DashboardPro
       </div>
 
       <AccountList accounts={sampleAccounts} />
-      <div className="grid grid-cols-6 grid-rows-4 gap-4 gap-y-8 h-screen max-h-[900px]">
+      <div className="grid grid-cols-6 grid-rows-4 gap-x-4 gap-y-8 h-screen max-h-[900px]">
         <Panel rowSpan={2} colSpan={2} className="py-2 relative h-[324px] justify-center">
           <BudgetsInsights />
         </Panel>
@@ -81,7 +84,12 @@ export default function Dashboard({ timeframe, onTimeframeChange }: DashboardPro
           차트
         </Panel>
         <Panel rowSpan={2} colSpan={2}>
-          스펜트, 카드
+          <div className="flex flex-col gap-4 h-full">
+            <SpentLimit />
+            <div className="flex-1 min-h-0">
+              <RegularPayment items={paymentData} />
+            </div>
+          </div>
         </Panel>
         {/* TODO :: colspan-4 issue */}
         <Panel rowSpan={2} colSpan={4} className="col-start-3 col-end-7">

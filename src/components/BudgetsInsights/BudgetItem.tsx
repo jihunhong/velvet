@@ -69,7 +69,7 @@ const BudgetItem = ({ budget }: { budget: Budget }) => {
           </div>
         </div>
         {insight.length > 0 ? (
-          <div className="flex items-start gap-2 w-full bg-gradient-to-r from-gray-50 to-gray-100 rounded-md p-4 shadow-sm border border-gray-200">
+          <div className="flex items-start gap-2 w-full bg-gradient-to-r from-gray-50 to-gray-100 rounded-md p-4 shadow-sm border border-gray-200 h-[78px]">
             <p className="text-sm text-gray-600 whitespace-pre-line line-clamp-2">{insight}</p>
           </div>
         ) : (
