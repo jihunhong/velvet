@@ -9,7 +9,7 @@ const Dot: React.FC<DotProps> = ({ dotColor, dotClassName }) => (
       backgroundColor: dotColor,
       boxShadow: `0 0px 6px ${dotColor}66`,
     }}
-    className={`w-[12px] h-[12px] rounded-sm transition-all duration-300 hover:scale-110 ${dotClassName}`}
+    className={`${dotClassName} w-[12px] h-[12px] rounded-sm transition-all duration-300 hover:scale-110`}
   />
 );
 

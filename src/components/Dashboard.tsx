@@ -67,7 +67,7 @@ export default function Dashboard({ timeframe, onTimeframeChange }: DashboardPro
       </div>
 
       <AccountList accounts={sampleAccounts} />
-      <div className="grid grid-cols-6 grid-rows-4 gap-4 h-screen max-h-[900px]">
+      <div className="grid grid-cols-6 grid-rows-4 gap-4 gap-y-8 h-screen max-h-[900px]">
         <Panel rowSpan={2} colSpan={2} className="py-2 relative h-[324px] justify-center">
           <BudgetsInsights />
         </Panel>

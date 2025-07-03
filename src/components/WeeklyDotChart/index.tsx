@@ -20,7 +20,6 @@ const WeeklyDotChart: React.FC<WeeklyDotChartProps> = ({ weeks: data, containerC
       dots: calculateDots(amount),
     }));
   }, [data]);
-  console.log('weeklyData', weeklyData);
 
   return (
     <div className={`${containerClassName}`}>
