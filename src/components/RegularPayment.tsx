@@ -43,9 +43,6 @@ const RegularPayment = ({ items }: RegularPaymentProps) => {
             </div>
           ))}
         </div>
-        <div className="mt-6 pt-4 border-t border-gray-100">
-          <div className="text-xs text-gray-400 text-center">* Date/Time values are local times where the activity is scheduled</div>
-        </div>
       </div>
     </div>
   );
