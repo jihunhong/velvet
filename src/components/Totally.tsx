@@ -14,7 +14,7 @@ const Totally = () => {
                 'radial-gradient(ellipse at top right, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.3) 30%, rgba(255, 255, 255, 0.1) 60%, transparent 100%)',
             }}
           />
-          <div className="text-sm  mb-4">Total Spending</div>
+          <div className="text-sm  mb-4">Total Earnings</div>
           <div className="text-2xl font-bold mb-1">₩450,000</div>
           <div className="flex items-center text-sm  font-semibold">
             <TrendingUp className="w-4 h-4 mr-1 text-rose-600" />
