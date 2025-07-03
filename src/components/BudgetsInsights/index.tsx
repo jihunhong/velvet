@@ -57,7 +57,7 @@ export default function BudgetsInsights() {
   return (
     <>
       <div
-        className="relative h-full w-90 items-center flex flex-col gap-4 rounded-xl border border-gray-200 bg-white z-[1]"
+        className="relative w-90 items-center flex flex-col gap-4 rounded-md border border-gray-200 bg-white z-[1]"
         onWheel={handleWheel}
         tabIndex={0}
       >
@@ -95,7 +95,7 @@ export default function BudgetsInsights() {
           </motion.div>
         </AnimatePresence>
       </div>
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[99%] h-[97.5%] bg-gray-100 rounded-xl z-[0]"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[99%] h-[101%] bg-gray-100 rounded-md z-[0]"></div>
     </>
   );
 }

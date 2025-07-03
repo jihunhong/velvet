@@ -1,7 +1,6 @@
 import { getDayForEng } from '@/common/utils/day';
 import { getStatusStyles } from '@/common/utils/percent';
 import { useBudgetInsightStream } from '@/hooks/useBudgetInsightStream';
-import { AnimatePresence, motion } from 'framer-motion';
 import { Ellipsis, Settings2, TrendingUp } from 'lucide-react';
 import { useEffect } from 'react';
 import { getCategoryColor } from '../../common/constants/expenseCategory';
@@ -36,7 +35,7 @@ const BudgetItem = ({ budget }: { budget: Budget }) => {
       </div>
       <div className="flex flex-col gap-1 subtitle">
         <div className="flex items-center gap-2">
-          <p className="text-base font-bold text-gray-900 tracking-tight">
+          <p className="text-lg font-bold text-gray-900 tracking-tight">
             ₩ {totalExpense.toLocaleString()}
             <span className="text-gray-400 text-sm ml-[4px]">원</span>
           </p>
@@ -69,30 +68,16 @@ const BudgetItem = ({ budget }: { budget: Budget }) => {
             </div>
           </div>
         </div>
-        <AnimatePresence mode="wait">
-          {insight.length > 0 ? (
-            <motion.div
-              key="content"
-              initial={{ opacity: 0.1 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.2, ease: 'easeOut' }}
-              className="flex items-center justify-between gap-1 w-full"
-            >
-              <motion.p
-                initial={{ opacity: 0.1 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.2 }}
-                className="text-sm text-gray-600 whitespace-pre-line"
-              >
-                {insight}
-              </motion.p>
-            </motion.div>
-          ) : (
-            <motion.div key="loading" initial={{ opacity: 0.1 }} animate={{ opacity: 1 }} exit={{ opacity: 0, y: 10 }}>
-              <BudgetLoading />
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {insight.length > 0 ? (
+          <div className="flex items-start gap-2 w-full bg-gradient-to-r from-gray-50 to-gray-100 rounded-md p-4 shadow-sm border border-gray-200">
+            <p className="text-sm text-gray-600 whitespace-pre-line line-clamp-2">{insight}</p>
+          </div>
+        ) : (
+          <div className="relative w-full">
+            <BudgetLoading />
+            <div className="w-full bg-gradient-to-r from-gray-50 to-gray-100 rounded-md shadow-sm border border-gray-200 animate-pulse h-[78px]" />
+          </div>
+        )}
       </div>
     </div>
   );

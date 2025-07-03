@@ -18,7 +18,8 @@ const Totally = () => {
           <div className="text-2xl font-bold mb-1">₩450,000</div>
           <div className="flex items-center text-sm  font-semibold">
             <TrendingUp className="w-4 h-4 mr-1 text-rose-600" />
-            <span className="text-rose-600">7%</span>&nbsp;<span>prev month</span>
+            <span className="text-rose-600">7%</span>
+            <span className="mx-1">·</span> <span>prev month</span>
           </div>
           <div className="flex items-center justify-between mt-auto">
             <span className="text-white text-sm font-medium">Jul 1 - {dayjs().format('MMM D')}, 2025</span>
@@ -33,7 +34,8 @@ const Totally = () => {
           <div className="text-2xl font-bold mb-1">₩450,000</div>
           <div className="flex items-center text-sm text-gray-400 font-semibold">
             <TrendingDown className="w-4 h-4 mr-1 text-blue-600" />
-            <span className="text-blue-600">7%</span>&nbsp;<span>prev month</span>
+            <span className="text-blue-600">7%</span>
+            <span className="mx-1">·</span> <span>prev month</span>
           </div>
           <div className="flex items-center justify-between mt-auto">
             <span className="text-gray-500 text-sm font-medium">Jul 1 - {dayjs().format('MMM D')}, 2025</span>
@@ -48,7 +50,8 @@ const Totally = () => {
           <div className="text-2xl font-bold mb-1">₩250,000</div>
           <div className="flex items-center text-sm text-gray-400 font-semibold">
             <TrendingUp className="w-4 h-4 mr-1 text-rose-600" />
-            <span className="text-rose-600">13%</span>&nbsp;<span>prev month</span>
+            <span className="text-rose-600">13%</span>
+            <span className="mx-1">·</span> <span>prev month</span>
           </div>
           <div className="flex items-center justify-between mt-auto">
             <span className="text-gray-500 text-sm font-medium">Jul 1 - {dayjs().format('MMM D')}, 2025</span>
@@ -62,7 +65,8 @@ const Totally = () => {
           <div className="text-2xl font-bold mb-1">₩950,000</div>
           <div className="flex items-center text-sm text-gray-400 font-semibold">
             <TrendingDown className="w-4 h-4 mr-1 text-blue-600" />
-            <span className=" text-blue-600">7%</span>&nbsp;<span>prev month</span>
+            <span className=" text-blue-600">7%</span>
+            <span className="mx-1">·</span> <span>prev month</span>
           </div>
           <div className="flex items-center justify-between mt-auto">
             <span className="text-gray-500 text-sm font-medium">Jul 1 - {dayjs().format('MMM D')}, 2025</span>

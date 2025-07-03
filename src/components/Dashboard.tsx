@@ -68,22 +68,23 @@ export default function Dashboard({ timeframe, onTimeframeChange }: DashboardPro
 
       <AccountList accounts={sampleAccounts} />
       <div className="grid grid-cols-6 grid-rows-4 gap-4 h-screen max-h-[900px]">
-        <Panel rowSpan={2} colSpan={2} className="h-full py-2 relative">
+        <Panel rowSpan={2} colSpan={2} className="py-2 relative h-[324px] justify-center">
           <BudgetsInsights />
         </Panel>
 
-        <Panel rowSpan={2} colSpan={2} className="py-2">
+        <Panel rowSpan={2} colSpan={2}>
           <section className="grid grid-rows-2 grid-cols-2 gap-3 h-full">
             <Totally />
           </section>
         </Panel>
-        <Panel rowSpan={2} colSpan={2} className="py-2">
+        <Panel rowSpan={2} colSpan={2}>
           차트
         </Panel>
         <Panel rowSpan={2} colSpan={2}>
           스펜트, 카드
         </Panel>
-        <Panel rowSpan={2} colSpan={4}>
+        {/* TODO :: colspan-4 issue */}
+        <Panel rowSpan={2} colSpan={4} className="col-start-3 col-end-7">
           <ExpenseList />
         </Panel>
       </div>
