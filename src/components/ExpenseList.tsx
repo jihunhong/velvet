@@ -38,7 +38,7 @@ export default function ExpenseList() {
         </div>
 
         <div className="max-h-80 overflow-y-auto custom-scrollbar">
-          <table className="min-w-full mb-[100px]">
+          <table className="min-w-full">
             <tbody className="bg-white divide-y divide-gray-100">
               {expenses.map((expense, idx) => (
                 <tr key={expense.id ?? idx} className="hover:bg-gray-50 transition-colors duration-150 group">
