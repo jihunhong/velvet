@@ -89,13 +89,14 @@ export default function BudgetsInsights() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.25, ease: 'easeInOut' }}
-            className="w-full min-h-[289px] p-6"
+            onClick={goNext}
+            className="w-full min-h-[289px] p-6 cursor-pointer"
           >
             <BudgetItem budget={budgets[currentIndex]} />
           </motion.div>
         </AnimatePresence>
       </div>
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[99%] h-[101%] bg-gray-100 rounded-md z-[0]"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[99%] h-[98%] bg-gray-100 rounded-md z-[0]"></div>
     </>
   );
 }

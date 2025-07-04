@@ -72,7 +72,9 @@ const ExpenseDialog = ({ isOpen, onClose, onSave }: ExpenseDialogProps) => {
       }
     };
     document.addEventListener('keydown', handleEscape);
-    return () => document.removeEventListener('keydown', handleEscape);
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+    };
   }, [isOpen]);
 
   const onSubmit = (data: ExpenseFormValues & { budgets?: Budget[] }) => {
@@ -112,12 +114,15 @@ const ExpenseDialog = ({ isOpen, onClose, onSave }: ExpenseDialogProps) => {
             <span className="text-sm font-semibold text-gray-800">소비내역 추가</span>
           </div>
           <div className="flex items-center gap-1">
-            <button className="p-1.5 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded transition-colors" title="Continue in immersive">
+            <button
+              className="p-1.5 bg-gray-50 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded transition-colors"
+              title="Continue in immersive"
+            >
               <Maximize2 size={16} />
             </button>
             <button
               onClick={onClose}
-              className="p-1.5 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded transition-colors"
+              className="p-1.5 bg-gray-50 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded transition-colors"
               title="Close chat"
             >
               <X size={16} />

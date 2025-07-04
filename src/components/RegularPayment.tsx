@@ -19,7 +19,7 @@ const RegularPayment = ({ items }: RegularPaymentProps) => {
         </div>
       </div>
       <div className="relative flex-1 min-h-0">
-        <div className="absolute left-[49px] top-0 bottom-8 w-0.5 h-full bg-gray-200"></div>
+        <div className="absolute left-[46px] top-0 bottom-8 w-0.5 h-full bg-gray-200"></div>
         <div className="space-y-6 custom-scrollbar overflow-y-auto h-full pr-2">
           {items.map((item) => (
             <div key={item.id} id={`item-${item.id}`} className="relative flex items-start">

@@ -22,7 +22,7 @@ const WeeklyDotChart: React.FC<WeeklyDotChartProps> = ({ weeks: data, containerC
   }, [data]);
 
   return (
-    <div className={`${containerClassName}`}>
+    <div className={containerClassName}>
       <div className="flex items-end justify-center gap-1 h-20">
         {weeklyData.map((week, index) => (
           <div key={week.week} className="flex flex-col items-center group relative">

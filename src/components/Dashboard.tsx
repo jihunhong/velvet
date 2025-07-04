@@ -38,15 +38,14 @@ const sampleAccounts = [
     name: '기업',
     balance: 156841,
     percentage: 29.65,
-    avatar: 'https://yt3.googleusercontent.com/EdpR22Cv9XXkWrK9aF45lfC8ZhLwm2D_FDc10Sx1lY5bm_IzAGpVwWHf6Muhj52DevWjdlLJuQ=s900-c-k-c0x00ffffff-no-rj',
+    avatar: 'https://static.toss.im/png-icons/securities/icn-sec-fill-024110.png',
   },
   {
     id: 3,
     name: '신한',
     balance: 117115,
     percentage: 22.14,
-    avatar:
-      'https://logo-pick.com/logo/%ED%86%A0%EC%8A%A4/%EC%8B%AC%EB%B3%BC_pr/%ED%86%A0%EC%8A%A4_%EC%8B%AC%EB%B3%BC_pr.webp?w=200&h=200&fit=crop&auto=format',
+    avatar: 'https://image.shinhan.com/rib2017/images/any/img_mobile_logo.png?dt=1751558018095',
   },
   {
     id: 4,
@@ -71,17 +70,17 @@ export default function Dashboard({ timeframe, onTimeframeChange }: DashboardPro
       </div>
 
       <AccountList accounts={sampleAccounts} />
-      <div className="grid grid-cols-6 grid-rows-4 gap-x-4 gap-y-8 h-screen max-h-[900px]">
+      <div className="grid grid-cols-6 grid-rows-[340px_50px_1fr_1fr] gap-x-4 gap-y-4 h-screen max-h-[900px]">
         <Panel rowSpan={2} colSpan={2} className="py-2 relative h-[324px] justify-center">
           <BudgetsInsights />
         </Panel>
 
         <Panel rowSpan={2} colSpan={2}>
-          <section className="grid grid-rows-2 grid-cols-2 gap-3 h-full">
+          <section className="grid grid-rows-2 grid-cols-2 gap-3 h-[360px]">
             <Totally />
           </section>
         </Panel>
-        <Panel rowSpan={2} colSpan={2}>
+        <Panel rowSpan={2} colSpan={2} className="h-full">
           <ProfitLossChart />
         </Panel>
         <Panel rowSpan={2} colSpan={2}>
